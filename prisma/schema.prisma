@@ -1,0 +1,136 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// トークン数を記録、月のトークン数のチェックなどに利用
+model TokensLog {
+  request_id        String   @unique @default(uuid())
+  request_user_id   String
+  date              DateTime @default(now())
+  completion_tokens BigInt   @default(0)
+  prompt_tokens     BigInt   @default(0)
+  total_tokens      BigInt   @default(0)
+  user              User     @relation(fields: [request_user_id], references: [id])
+}
+
+// 質問  回答者に出される質問（Quizとセット）
+// id           : 出題の説明文
+// quiz_id      : クイズのID
+// answer_id    : 答えのID
+// user_id      : ユーザーのID
+// ai_answer    : GPTの回答
+model Questions {
+  id          String    @id @default(uuid())
+  quiz_id     String
+  user_id     String
+  create_date DateTime  @default(now())
+  update_date DateTime  @default(now())
+  quiz        Quizzes   @relation(fields: [quiz_id], references: [id])
+  user        User      @relation(fields: [user_id], references: [id])
+  TalkLog     TalkLog[]
+}
+
+// トークの数を記載
+// question_id  : 質問のID
+// speaker      : user | ai
+// content      : 会話の内容
+// score        : 1〜100点  ※speakerがaiの場合のみ　任意
+// best_answer  : 解答例　　 ※speakerがaiの場合のみ。任意
+model TalkLog {
+  id          String    @id
+  question_id String
+  speaker     String
+  content     String    @db.Text
+  score       Int?
+  create_date DateTime  @default(now())
+  question    Questions @relation(fields: [question_id], references: [id])
+}
+
+// クイズ  GPTから出題する問題
+// title   : 出題の説明文
+// content : 出題内容
+// type    : [会話(conversation) | 翻訳(translation) | クイズ（Quiz）]
+// level   : [初級、中級、上級、超上級、プロ、鬼]　※ベータ段階では未実装
+// option  : OpenAIのAPIのpostパラメータ
+model Quizzes {
+  id           String      @id @default(uuid())
+  content      String      @db.Text
+  quiz_type_id Int
+  level        String?
+  option       Json?
+  create_date  DateTime    @default(now())
+  update_date  DateTime    @default(now())
+  QuizType     QuizType    @relation(fields: [quiz_type_id], references: [id])
+  Questions    Questions[]
+}
+
+// クイズ  種別
+// title   : 出題の説明文
+// content : 出題内容
+// type    : [会話(conversation)、翻訳(translation)、クイズ（Quiz）]
+// level   : [初級、中級、上級、超上級、プロ、鬼]　※ベータ段階では未実装
+// option  : OpenAIのAPIのpostパラメータ
+model QuizType {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  Quizzes     Quizzes[]
+}
+
+// ********************
+//  NextAuth configure
+// ********************
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  email         String?     @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  Questions     Questions[]
+  TokensLog     TokensLog[]
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

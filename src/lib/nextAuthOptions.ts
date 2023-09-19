@@ -1,8 +1,11 @@
 import Google from "next-auth/providers/google";
 
 import type { NextAuthOptions as NextAuthConfig } from "next-auth"
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import prisma from '@/db/prisma'
 
 export const nextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   pages: {
     error: '/error',
   },
