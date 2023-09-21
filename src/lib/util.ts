@@ -55,5 +55,5 @@ export const yyyymmddhhmmss = new Intl.DateTimeFormat(
         second: '2-digit',
     }
 )
-
 export const serverlog = (msg: string, type = "info") => console.log(`[${type}] ${yyyymmddhhmmss.format(new Date())} ${msg}`)
+export const randomStr = () => Math.random().toString(36).slice(2)

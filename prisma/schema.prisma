@@ -12,29 +12,27 @@ datasource db {
 
 // トークン数を記録、月のトークン数のチェックなどに利用
 model TokensLog {
-  request_id        String   @unique @default(uuid())
+  id                String   @unique @default(uuid())
   request_user_id   String
   date              DateTime @default(now())
   completion_tokens BigInt   @default(0)
   prompt_tokens     BigInt   @default(0)
   total_tokens      BigInt   @default(0)
-  user              User     @relation(fields: [request_user_id], references: [id])
 }
 
 // 質問  回答者に出される質問（Quizとセット）
 // id           : 出題の説明文
 // quiz_id      : クイズのID
-// answer_id    : 答えのID
-// user_id      : ユーザーのID
-// ai_answer    : GPTの回答
+// user_id      : ユーザーのID | nullの場合はゲスト
+// completed    : 完了フラグ
 model Questions {
   id          String    @id @default(uuid())
   quiz_id     String
-  user_id     String
+  user_id     String?
+  completed   Boolean
   create_date DateTime  @default(now())
   update_date DateTime  @default(now())
   quiz        Quizzes   @relation(fields: [quiz_id], references: [id])
-  user        User      @relation(fields: [user_id], references: [id])
   TalkLog     TalkLog[]
 }
 
@@ -95,12 +93,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String?
-  access_token      String?
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String?
+  id_token          String? @db.Text
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -116,15 +114,13 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?     @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Questions     Questions[]
-  TokensLog     TokensLog[]
 }
 
 model VerificationToken {

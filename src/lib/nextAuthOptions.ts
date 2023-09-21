@@ -19,10 +19,11 @@ export const nextAuthOptions = {
     async signIn() {
       return true
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
+    async redirect({ url }) {
+      return url
     },
     async session({ session, token, user }) {
+      if (session?.user) session.user.id = user.id;
       return session
     },
     async jwt({ token, user, account, profile, isNewUser }) {
