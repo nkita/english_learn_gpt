@@ -15,17 +15,18 @@ export default function Header() {
             >
                 <Container
                     bg={'blue.600'}
-                    p={3}
+                    p={2}
                     maxW={'container.md'}
                     centerContent
                 >
-                    <Box sx={{ w: '100%', display: 'flex', justifyContent: 'space-between', }}>
+                    <Box w={'100%'} display={'flex'} justifyContent={'space-between'}>
                         <Flex align="center" mr={5}>
                             <Heading as="h1" size="sm" letterSpacing={'tighter'} color={"whiteAlpha.900"}>
                                 <Link as={NextLink} href='/home'> English Learning with GPT</Link>
                             </Heading>
                         </Flex>
                         <Stack direction={'row'} sx={{ alignItems: 'center' }}>
+                            <LinkItem href='/api/auth/signin' path='/'>SignIn</LinkItem>
                             {/* <LinkItem href='/home' path='/'>History</LinkItem> */}
                             {/* <LinkItem href='/profile' path='/'>Me</LinkItem> */}
                         </Stack>
@@ -56,8 +57,7 @@ const LinkItem = (
             as={NextLink}
             href={href}
             scroll={false}
-            p={2}
-            color={active ? '#202023' : 'gray.800'}
+            color={'whiteAlpha.900'}
             target={target}
             {...props}
         >

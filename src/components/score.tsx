@@ -8,7 +8,6 @@ const font = Fredoka({ subsets: ['latin'] })
 export const Score = ({ value }: { value: number }) => {
     let colors = color_sets.filter(cs => (cs.score[0] <= value && value <= cs.score[1]))[0]
     if (colors === undefined) colors = { score: [], bg: 'red.500', bcolor: 'red.500', color: 'white' }
-    console.log(colors)
     return (
         <>
             <Box
