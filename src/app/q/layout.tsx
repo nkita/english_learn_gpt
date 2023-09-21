@@ -1,4 +1,3 @@
-'use client'
 import type { FC, PropsWithChildren } from "react";
 import { Box, Icon, Flex, Heading, Link, Stack } from '@chakra-ui/react'
 
