@@ -11,8 +11,8 @@ INSERT INTO
         `content`,
         `level`,
         `option`,
-        `create_date`,
-        `update_date`,
+        `create_at`,
+        `update_at`,
         `quiz_type_id`
     )
 VALUES

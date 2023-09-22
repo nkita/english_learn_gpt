@@ -1,10 +1,11 @@
 import { responseJson } from '@/lib/response'
 import { select, rand_select_one } from '@/db/quizzes'
-import { create } from '@/db/questions'
+import { create, select_on_quiz } from '@/db/questions'
 import { isUUID } from '@/lib/util'
 import { guestId } from '@/lib/guest'
 import { getServerSession } from "next-auth/next"
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
+
 
 /**
  * Questionの取得。
@@ -13,10 +14,21 @@ import { nextAuthOptions } from '@/lib/nextAuthOptions'
  */
 export async function GET(request: Request, { params }: { params: any }) {
     if (!isUUID(params.question_id)) return responseJson(422)
+    //　セッションチェック必要かも
 
-    // not found
-    return responseJson(400, null)
-    return responseJson(200)
+    const record = await select_on_quiz({ id: params.question_id })
+    if (!record) return responseJson(400, null)
+
+    const response = {
+        id: record.id,
+        status: record.status,
+        create_at: record.create_at,
+        update_at: record.update_at,
+        content: record.quiz.content,
+        type: record.quiz.quiz_type.name,
+        description: record.quiz.quiz_type.description
+    }
+    return responseJson(200, response)
 }
 
 /**

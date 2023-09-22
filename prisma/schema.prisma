@@ -24,16 +24,16 @@ model TokensLog {
 // id           : 出題の説明文
 // quiz_id      : クイズのID
 // user_id      : ユーザーのID | nullの場合はゲスト
-// completed    : 完了フラグ
+// completed    : Inprogress,skip,completed
 model Questions {
-  id          String    @id @default(uuid())
-  quiz_id     String
-  user_id     String?
-  completed   Boolean
-  create_date DateTime  @default(now())
-  update_date DateTime  @default(now())
-  quiz        Quizzes   @relation(fields: [quiz_id], references: [id])
-  TalkLog     TalkLog[]
+  id        String    @id @default(uuid())
+  quiz_id   String
+  user_id   String?
+  status    String
+  create_at DateTime  @default(now())
+  update_at DateTime  @default(now())
+  quiz      Quizzes   @relation(fields: [quiz_id], references: [id])
+  TalkLog   TalkLog[]
 }
 
 // トークの数を記載
@@ -46,9 +46,10 @@ model TalkLog {
   id          String    @id
   question_id String
   speaker     String
-  content     String    @db.Text
+  content     String?   @db.Text
+  best_answer String?   @db.Text
   score       Int?
-  create_date DateTime  @default(now())
+  create_at   DateTime  @default(now())
   question    Questions @relation(fields: [question_id], references: [id])
 }
 
@@ -64,9 +65,9 @@ model Quizzes {
   quiz_type_id Int
   level        String?
   option       Json?
-  create_date  DateTime    @default(now())
-  update_date  DateTime    @default(now())
-  QuizType     QuizType    @relation(fields: [quiz_type_id], references: [id])
+  create_at    DateTime    @default(now())
+  update_at    DateTime    @default(now())
+  quiz_type    QuizType    @relation(fields: [quiz_type_id], references: [id])
   Questions    Questions[]
 }
 

@@ -8,18 +8,39 @@ export const select = async (where: any) => await prisma.questions.findMany({ wh
  * @returns 
  */
 export const create = async (user_id: string, quiz_id: string) => await prisma.$transaction(async (prisma) => {
-
-    const hasProgress = await prisma.questions.findFirst({ where: { user_id: user_id, completed: false } })
-
+    const hasProgress = await prisma.questions.findFirst({ where: { user_id: user_id, status: 'Inprogress' } })
     return hasProgress
         ?? await prisma.questions.create({
             data: {
                 id: randomUUID(),
                 quiz_id: quiz_id,
                 user_id: user_id,
-                completed: false,
-                create_date: new Date(),
-                update_date: new Date(),
+                status: 'Inprogress',
+                create_at: new Date(),
+                update_at: new Date(),
             }
         })
+})
+
+/**
+ * 
+ * @param where 
+ * @returns 
+ */
+export const select_on_quiz = async (where: any) => await prisma.questions.findFirst({
+    select: {
+        id: true,
+        status: true,
+        create_at: true,
+        update_at: true,
+        quiz: {
+            select: {
+                content: true,
+                level: true,
+                option: true,
+                quiz_type: true
+            }
+        }
+    },
+    where: where
 })

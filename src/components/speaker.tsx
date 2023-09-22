@@ -1,4 +1,3 @@
-
 'use client'
 import {
     Box,
@@ -13,10 +12,26 @@ import {
     Avatar,
     Text
 } from '@chakra-ui/react'
-
 import { Score } from '@/components/score';
 
-export default function Result() {
+
+export function User({ userImage }: { userImage: string | null }) {
+    return (
+        <>
+            <Card>
+                <CardBody bg={'orange.50'}>
+                    <Box display={'flex'} alignItems={'center'} pb={5}>
+                        <Avatar src={userImage ?? ""} size='xs' />
+                        <Text pl={2} fontSize={'sm'}>Your answer</Text>
+                    </Box>
+                    <Text>My Answer is Very Special</Text>
+                </CardBody>
+            </Card>
+        </>
+    );
+}
+
+export function AI() {
     return (
         <>
             <Card>
@@ -58,3 +73,6 @@ export default function Result() {
         </>
     );
 }
+
+
+
