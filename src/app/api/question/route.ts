@@ -2,9 +2,7 @@ import { responseJson } from '@/lib/response'
 import { select, rand_select_one } from '@/db/quizzes'
 import { create } from '@/db/questions'
 import { isUUID } from '@/lib/util'
-import { guestId } from '@/lib/guest'
-import { getServerSession } from "next-auth/next"
-import { nextAuthOptions } from '@/lib/nextAuthOptions'
+import sessionUID from '@/lib/session'
 /**
  * @returns response JSON
  */
@@ -17,9 +15,7 @@ export const GET = async () => responseJson(405)
  */
 export async function POST(request: Request) {
     if (request.headers.get('content-type') !== 'application/json') return responseJson(400)
-
-    const session = await getServerSession(nextAuthOptions)
-    const uid = session ? session.user.id : guestId()
+    const uid = await sessionUID()
 
     // パラメータからquizIDを取得
     const res = await request.json()

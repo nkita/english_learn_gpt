@@ -5,7 +5,7 @@ import { isUUID } from '@/lib/util'
 import { guestId } from '@/lib/guest'
 import { getServerSession } from "next-auth/next"
 import { nextAuthOptions } from '@/lib/nextAuthOptions'
-
+import sessionUID from '@/lib/session'
 
 /**
  * Questionの取得。
@@ -16,7 +16,8 @@ export async function GET(request: Request, { params }: { params: any }) {
     if (!isUUID(params.question_id)) return responseJson(422)
     //　セッションチェック必要かも
 
-    const record = await select_on_quiz({ id: params.question_id })
+    const uid = await sessionUID()
+    const record = await select_on_quiz({ id: params.question_id, user_id: uid })
     if (!record) return responseJson(400, null)
 
     const response = {

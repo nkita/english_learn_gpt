@@ -61,9 +61,7 @@ export default function Home() {
           {q_data &&
             <Stack spacing='4'>
               <Quiz description={q_data.description} content={q_data.content} type={q_data.type} max_count={10} current_count={1} />
-
-              <TalkLog userImage={userImage} />
-
+              <TalkLog userImage={userImage} logs={tl_data} error={tl_error} isLoading={tl_isLoading} />
             </Stack>
           }
         </Container>

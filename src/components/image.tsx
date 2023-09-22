@@ -1,14 +1,17 @@
 'use client'
-import { Text, Image, Box } from '@chakra-ui/react'
+import { Text, Image, Box, Stack } from '@chakra-ui/react'
 
 export default function ImageBox({ src, size = '150px', alt = '', text }: { src: string, size?: string, alt: string, text?: string }) {
     return (
-        <Box p={'5'} textAlign={'center'} w={size}>
-            <Image
-                src={src}
-                alt={alt}
-            />
+        <Stack>
+            <Box w={size}>
+                <Image
+                    src={src}
+                    alt={alt}
+                    pb={5}
+                />
+            </Box>
             <Text fontSize={'md'} >{text}</Text>
-        </Box>
+        </Stack>
     )
 }   

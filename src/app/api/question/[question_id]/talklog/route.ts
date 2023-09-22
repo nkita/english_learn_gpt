@@ -1,10 +1,8 @@
 import { responseJson } from '@/lib/response'
-import { select, rand_select_one } from '@/db/quizzes'
-import { create, select_on_quiz } from '@/db/questions'
+import { select } from '@/db/talklog'
 import { isUUID } from '@/lib/util'
-import { guestId } from '@/lib/guest'
-import { getServerSession } from "next-auth/next"
-import { nextAuthOptions } from '@/lib/nextAuthOptions'
+import sessionUID from '@/lib/session'
+
 
 
 /**
@@ -14,9 +12,14 @@ import { nextAuthOptions } from '@/lib/nextAuthOptions'
  */
 export async function GET(request: Request, { params }: { params: any }) {
     if (!isUUID(params.question_id)) return responseJson(422)
-    // 用セッションチェック
 
-    return responseJson(200)
+    // 用セッションチェック
+    const uid = await sessionUID()
+    const record = await select({ id: params.question_id, user_id: uid }, [{ create_at: 'desc' }])
+
+    if (record.length === 0) return responseJson(400)
+
+    return responseJson(200, record)
 }
 
 /**

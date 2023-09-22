@@ -6,6 +6,7 @@ export type ResponseJson = (
 ) => Response
 
 export const responseJson: ResponseJson = (status, body = {}, statusText = "", options = {}) => {
+    if (!Object.keys(body).length && status !== 200) body = null
     options.status = status
     options.statusText = statusText
     if (options.headers === undefined || !options.headers) options.headers = { "Content-type": 'application/json' }

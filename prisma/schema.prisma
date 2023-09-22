@@ -13,6 +13,7 @@ datasource db {
 // トークン数を記録、月のトークン数のチェックなどに利用
 model TokensLog {
   id                String   @unique @default(uuid())
+  user_id           String
   request_user_id   String
   date              DateTime @default(now())
   completion_tokens BigInt   @default(0)
@@ -27,8 +28,8 @@ model TokensLog {
 // completed    : Inprogress,skip,completed
 model Questions {
   id        String    @id @default(uuid())
+  user_id   String
   quiz_id   String
-  user_id   String?
   status    String
   create_at DateTime  @default(now())
   update_at DateTime  @default(now())
@@ -45,6 +46,7 @@ model Questions {
 model TalkLog {
   id          String    @id
   question_id String
+  user_id     String
   speaker     String
   content     String?   @db.Text
   best_answer String?   @db.Text
