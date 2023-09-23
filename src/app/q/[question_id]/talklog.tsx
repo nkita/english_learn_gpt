@@ -9,7 +9,7 @@ export default function TalkLog({ userImage, logs, error, isLoading }: { userIma
   const random_img = random_image()
   if (!logs && !isLoading) {
     return (
-      <Box h={'100%'} display={'flex'} pt={5} justifyContent={'center'} alignItems={'center'}>
+      <Box display={'flex'} pt={5} justifyContent={'center'} alignItems={'center'}>
         <BoxImage src={random_img.image} alt={'System Error'} size='200px' text={random_img.message} />
       </Box>
     )
@@ -17,7 +17,7 @@ export default function TalkLog({ userImage, logs, error, isLoading }: { userIma
   if (!logs && !isLoading) {
     return (
       <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-        <BoxImage src='/error.svg' alt={'System Error'} size='220px' text={"System error. _(:3｣∠)_"} />
+        <BoxImage src='/error.svg' alt={'System Error'} text={"System error. _(:3｣∠)_"} />
       </Box>
     )
   }
@@ -48,9 +48,9 @@ export default function TalkLog({ userImage, logs, error, isLoading }: { userIma
 
 const random_image = () => {
   const list = [
-    { image: '/random/01.svg', 'message': 'さぁ、問題を解いてみよう！' },
-    { image: '/random/02.svg', 'message': 'さぁ、問題を解いてみよう！' },
-    { image: '/random/03.svg', 'message': 'さぁ、問題を解いてみよう！' },
+    { image: '/random/01.svg', 'message': '問題を解いてみよう！' },
+    { image: '/random/02.svg', 'message': 'さぁ、頑張ろう！' },
+    { image: '/random/03.svg', 'message': '今日も１問！！' },
     { image: '/random/04.svg', 'message': 'さぁ、問題を解いてみよう！' },
     { image: '/random/05.svg', 'message': 'さぁ、問題を解いてみよう！' },
     { image: '/random/06.svg', 'message': 'さぁ、問題を解いてみよう！' },

@@ -28,9 +28,9 @@ export default function Home() {
 
   return (
     <>
-      <Box bg={'#fafafa'}>
+      <Box bg={"#fafafa"}>
         <Container
-          h={`calc(100vh - 150px)`}
+          h={`calc(100vh - 110px)`}
           pt={20} maxW={'container.md'}
           overflow={'scroll'}
           overflowY={'auto'}

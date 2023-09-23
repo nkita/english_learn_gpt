@@ -22,7 +22,7 @@ export default function Header() {
                     <Box w={'100%'} display={'flex'} justifyContent={'space-between'}>
                         <Flex align="center" mr={5}>
                             <Heading as="h1" size="sm" letterSpacing={'tighter'} color={"whiteAlpha.900"}>
-                                <Link as={NextLink} href='/home'> English Learning with GPT</Link>
+                                <Link as={NextLink} href='/q'> English Learning with GPT</Link>
                             </Heading>
                         </Flex>
                         <Stack direction={'row'} sx={{ alignItems: 'center' }}>
