@@ -9,6 +9,7 @@ import BoxImage from '@/components/image'
 import { useUser } from '@/hooks/session'
 import { useFetch } from '@/hooks/fetch'
 import { useParams } from 'next/navigation'
+import { useState } from 'react'
 
 
 export default function Home() {
@@ -18,13 +19,29 @@ export default function Home() {
   const user = useUser()
   const userImage = user ? user.image ?? "" : ""
 
+  const [interval, setInterval] = useState(0)
   // Question取得
   const params = useParams()
   const question_id = params.question_id
   const { data: q_data, error: q_error, isLoading: q_isLoading } = useFetch(`/api/question/${question_id}`, { method: 'GET' })
 
+  const [inprogress, setInprogress] = useState(false)
   // Questionがnullでない場合ログを取得
-  const { data: tl_data, error: tl_error, isLoading: tl_isLoading } = useFetch(`/api/question/${question_id}/talklog`, { method: 'GET' })
+  const { data: tl_data, error: tl_error, isLoading: tl_isLoading } = useFetch(
+    `/api/question/${question_id}/talklog`,
+    { method: 'GET' },
+    {
+      refreshInterval: inprogress ? 3000 : 0,
+      onSuccess: (data: any) => {
+        if (data) {
+          setInprogress(data.at(-1).speaker === 'user')
+        }
+      }
+    }
+  )
+
+  // const submit_lock = tl_data?.length > 0 ? true : false
+  const submit_lock = false
 
   return (
     <>
@@ -66,7 +83,7 @@ export default function Home() {
           }
         </Container>
       </Box >
-      <Me userImage={userImage} disabled={q_isLoading || !q_data} />
+      <Me userImage={userImage} disabled={q_isLoading || !q_data} questionId={question_id} lock={submit_lock} />
     </>
   );
 }

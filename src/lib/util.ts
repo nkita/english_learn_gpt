@@ -1,7 +1,7 @@
 export const isUUID = (value: string) => /^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})$/.test(value);
 export const isNumber = (value: string) => /^[0-9]+$/.test(value);
 export const isChars = (value: string) => /^[0-9a-zA-Z]+$/.test(value);
-export const isEnglishChars = (value: string) => /^[ -~]*$/.test(value);
+export const isEnglishChars = (value: string) => /^[ -~\r\n]*$/.test(value);
 export const isEmail = (value: string) => /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+$/.test(value);
 export const encodeJsonString = (value: string) => new TextEncoder().encode(JSON.stringify(value))
 export const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time))

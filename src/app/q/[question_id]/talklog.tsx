@@ -10,36 +10,39 @@ export default function TalkLog({ userImage, logs, error, isLoading }: { userIma
   if (!logs && !isLoading) {
     return (
       <Box display={'flex'} pt={5} justifyContent={'center'} alignItems={'center'}>
-        <BoxImage src={random_img.image} alt={'System Error'} size='200px' text={random_img.message} />
+        <BoxImage src={random_img.image} alt={'background image'} size='200px' text={random_img.message} />
       </Box>
     )
   }
-  if (!logs && !isLoading) {
+  if (error) {
     return (
       <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <BoxImage src='/error.svg' alt={'System Error'} text={"System error. _(:3｣∠)_"} />
       </Box>
     )
   }
+  if (isLoading) {
+    return (
+      <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+        <Loading />
+      </Box>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+        <Loading />
+      </Box>
+    )
+  }
+
   return (
     <>
-      {(error) && !isLoading &&
-        <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-          <BoxImage src='/not-found-question.svg' alt={'Not Found'} size='420px' text={"I'm sooooorry... I couldn't locate it. _(:3｣∠)_"} />
-        </Box>
-      }
-      {isLoading &&
-        <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-          <Loading />
-        </Box>
-      }
-      {logs &&
-        <>
-          <User userImage={userImage} />
-          <AI />
-          <Action />
-        </>
-      }
+      {logs.length > 0 && logs.map((l: any, index: number) => {
+        if (l.speaker === 'user') return <User key={l.id} userImage={userImage} content={l.content} />
+        if (l.speaker === 'ai') return <AI key={l.id} content={l.content} score={l.score} solution={l.solution} />
+      })}
     </>
   );
 }

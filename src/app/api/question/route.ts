@@ -14,7 +14,6 @@ export const GET = async () => responseJson(405)
  * @returns question JSON Object（新規作成されたQuestionを返却する）
  */
 export async function POST(request: Request) {
-    if (request.headers.get('content-type') !== 'application/json') return responseJson(400)
     const uid = await sessionUID()
 
     // パラメータからquizIDを取得

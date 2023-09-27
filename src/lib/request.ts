@@ -10,7 +10,7 @@ export const requestJson: RequestJson = async (url, data, headers = {}, method =
         const _url = new URL(url)
         Object.keys(data).map(k => _url.searchParams.set(k, data[k]))
     }
-    const _headers = { 'Content-Type': 'application/json' }
+    const _headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
     Object.assign(_headers, headers)
     return await fetch(url, {
         method: method,

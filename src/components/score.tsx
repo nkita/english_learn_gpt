@@ -5,8 +5,33 @@ import { Fredoka } from 'next/font/google'
 
 const font = Fredoka({ subsets: ['latin'] })
 
-export const Score = ({ value }: { value: number }) => {
-    let colors = color_sets.filter(cs => (cs.score[0] <= value && value <= cs.score[1]))[0]
+export const Score = ({ value }: { value: number | string }) => {
+    let _score = 0;
+    if (typeof value === "string") {
+        switch (value) {
+            case 'S':
+                _score = 100
+                break;
+            case 'A':
+                _score = 99
+                break;
+            case 'B':
+                _score = 80
+                break;
+            case 'C':
+                _score = 70
+                break;
+            case 'F':
+                _score = 0
+                break;
+            default:
+                _score = 50
+
+        }
+    } else {
+        _score = value
+    }
+    let colors = color_sets.filter(cs => (cs.score[0] <= _score && _score <= cs.score[1]))[0]
     if (colors === undefined) colors = { score: [], bg: 'red.500', bcolor: 'red.500', color: 'white' }
     return (
         <>
