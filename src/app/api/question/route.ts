@@ -18,6 +18,7 @@ export async function POST(request: Request) {
 
     // パラメータからquizIDを取得
     const res = await request.json()
+
     // ランダムまたは、ID指定でQuizを取得
     let quiz: any
     if (res.quizId === undefined || !res.quizId) {

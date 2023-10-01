@@ -14,7 +14,6 @@ datasource db {
 model TokensLog {
   id                String   @unique @default(uuid())
   user_id           String
-  request_user_id   String
   date              DateTime @default(now())
   completion_tokens BigInt   @default(0)
   prompt_tokens     BigInt   @default(0)

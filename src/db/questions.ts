@@ -7,19 +7,35 @@ export const select = async (where: any) => await prisma.questions.findMany({ wh
  * @param user_id 
  * @returns 
  */
-export const create = async (user_id: string, quiz_id: string) => await prisma.$transaction(async (prisma) => {
-    const hasProgress = await prisma.questions.findFirst({ where: { user_id: user_id, status: 'Inprogress' } })
-    return hasProgress
-        ?? await prisma.questions.create({
-            data: {
-                id: randomUUID(),
-                quiz_id: quiz_id,
-                user_id: user_id,
-                status: 'Inprogress',
-                create_at: new Date(),
-                update_at: new Date(),
-            }
-        })
+// export const create = async (user_id: string, quiz_id: string) => await prisma.$transaction(async (prisma) => {
+//     const hasProgress = await prisma.questions.findFirst({ where: { user_id: user_id, status: 'Inprogress' } })
+//     return hasProgress
+//         ?? await prisma.questions.create({
+//             data: {
+//                 id: randomUUID(),
+//                 quiz_id: quiz_id,
+//                 user_id: user_id,
+//                 status: 'Inprogress',
+//                 create_at: new Date(),
+//                 update_at: new Date(),
+//             }
+//         })
+// })
+
+/**
+ * 質問作成　強制で作成。
+ * @param user_id 
+ * @returns 
+ */
+export const create = async (user_id: string, quiz_id: string) => await prisma.questions.create({
+    data: {
+        id: randomUUID(),
+        quiz_id: quiz_id,
+        user_id: user_id,
+        status: 'Inprogress',
+        create_at: new Date(),
+        update_at: new Date(),
+    }
 })
 
 /**

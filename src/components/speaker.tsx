@@ -47,7 +47,9 @@ export function AI({ content, score, solution }: { content: string, score?: stri
                         <Stack pb={2} pl={2} direction={"row"} justifyContent={'space-between'}>
                             {score && <Score value={score} />}
                             <Box justifyContent={'start'} bg='gray.50' p={5} w={"85%"} rounded={10}>
-                                {content}
+                                {content &&
+                                    content.split('\n').map((c, index) => <Fragment key={index}>{c}<br /></Fragment>)
+                                }
                             </Box>
                         </Stack>
                         {solution &&
