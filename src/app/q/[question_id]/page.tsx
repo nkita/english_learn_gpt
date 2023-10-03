@@ -34,14 +34,11 @@ export default function Home() {
       refreshInterval: inprogress ? 3000 : 0,
       onSuccess: (data: any) => {
         if (data) {
-          setInprogress(data.at(-1).speaker === 'user')
+          setInprogress(data.logs.at(-1).speaker === 'user')
         }
       }
     }
   )
-
-  // const submit_lock = tl_data?.length > 0 ? true : false
-  const submit_lock = false
 
   return (
     <>
@@ -78,12 +75,19 @@ export default function Home() {
           {q_data &&
             <Stack spacing='4'>
               <Quiz description={q_data.description} content={q_data.content} type={q_data.type} max_count={10} current_count={1} />
-              <TalkLog userImage={userImage} logs={tl_data} error={tl_error} isLoading={tl_isLoading} inprogress={inprogress}/>
+              <TalkLog userImage={userImage} talklog={tl_data} error={tl_error} isLoading={tl_isLoading} inprogress={inprogress} />
             </Stack>
           }
         </Container>
       </Box >
-      <Me userImage={userImage} disabled={q_isLoading || !q_data} questionId={question_id} lock={submit_lock} />
+      <Me userImage={userImage}
+        disabled={
+          q_isLoading
+          || !q_data
+          || inprogress 
+          || (tl_data && tl_data.question_satatus === 'Completed')
+        }
+        questionId={question_id} />
     </>
   );
 }

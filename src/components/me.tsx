@@ -10,35 +10,29 @@ export default function Me({
     userImage,
     disabled = false,
     questionId,
-    lock,
 }: {
     userImage: string | null,
     disabled?: boolean,
     questionId: string | string[],
-    lock: boolean
 }) {
     const [charCount, setCharCount] = useState(0)
     const [chars, setChars] = useState("")
-    const [submitLock, setSubmitLock] = useState(!chars || lock)
     const [isLoading, setLoading] = useState(false)
     const { mutate } = useSWRConfig()
     const handleOnChange = (txt: string) => {
         setChars(txt)
         setCharCount(txt.length)
-        setSubmitLock(!txt || lock)
     }
 
     const toast = useToast()
     const handleSubmit = () => {
-        if (!submitLock && chars) {
+        if (chars) {
             if (isEnglishChars(chars)) {
                 const post_url = `/api/question/${questionId}/talklog`
                 setLoading(true)
-                setSubmitLock(true)
                 requestJson(post_url, { data: chars })
                     .then(res => {
                         if (res.ok) {
-                            // setSubmitLock(true)
                             handleOnChange('')
                             mutate(post_url)
                         } else {
@@ -65,6 +59,13 @@ export default function Me({
                     isClosable: true,
                 })
             }
+        } else {
+            toast({
+                description: '文字を入力してください。',
+                status: 'warning',
+                duration: 2000,
+                isClosable: true,
+            })
         }
     }
 
@@ -91,21 +92,21 @@ export default function Me({
                                 maxLength={maxCharCount}
                                 rows={3}
                                 bg={'whiteAlpha.900'}
-                                disabled={disabled || lock}
+                                disabled={disabled}
                                 value={chars}
                                 onChange={e => handleOnChange(e.target?.value)}
                                 resize={'none'} />
                         </Box>
                         <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'end'}>
                             <Button
-                                leftIcon={submitLock ? <NotAllowedIcon /> : <ChatIcon />}
+                                leftIcon={disabled ? <NotAllowedIcon /> : <ChatIcon />}
                                 h={'100%'}
                                 colorScheme='purple'
                                 color={'whiteAlpha.900'}
-                                bg={submitLock ? 'gray.400' : 'blue.400'}
-                                cursor={submitLock ? 'not-allowed' : 'pointer'}
-                                _hover={{ bg: submitLock ? 'gray.400' : 'blue.500' }}
-                                disabled={submitLock}
+                                bg={disabled ? 'gray.400' : 'blue.400'}
+                                cursor={disabled ? 'not-allowed' : 'pointer'}
+                                _hover={{ bg: disabled ? 'gray.400' : 'blue.500' }}
+                                disabled={disabled}
                                 mb={4}
                                 isLoading={false}
                                 onClick={e => handleSubmit()}

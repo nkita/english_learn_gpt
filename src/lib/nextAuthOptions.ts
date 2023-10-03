@@ -20,7 +20,7 @@ export const nextAuthOptions = {
       return true
     },
     async redirect({ url }) {
-      return url
+      return '/q'
     },
     async session({ session, token, user }) {
       if (session?.user) session.user.id = user.id;

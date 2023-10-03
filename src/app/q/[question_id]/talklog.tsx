@@ -7,18 +7,21 @@ import BoxImage from '@/components/image'
 
 export default function TalkLog({
   userImage,
-  logs,
+  talklog,
   error,
   isLoading,
   inprogress
 }: {
   userImage: string,
-  logs?: any,
+  talklog?: any,
   error: any,
   isLoading: boolean,
   inprogress: boolean
 }) {
   const random_img = random_image()
+
+  const logs = !talklog ? null : talklog.logs
+
   if (!logs && !isLoading) {
     return (
       <Box display={'flex'} pt={5} justifyContent={'center'} alignItems={'center'}>
@@ -33,14 +36,6 @@ export default function TalkLog({
       </Box>
     )
   }
-  if (isLoading) {
-    return (
-      <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-        <Loading />
-      </Box>
-    )
-  }
-
   if (isLoading) {
     return (
       <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>

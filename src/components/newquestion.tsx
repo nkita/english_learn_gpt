@@ -1,8 +1,7 @@
 'use client';
 
-import { Box, Button, useToast } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { requestJson } from '@/lib/request';
-import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 export const NextQuestionButton = () => {

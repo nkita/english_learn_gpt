@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     if (request.headers.get('content-type') !== 'application/json') return responseJson(400)
 
     const session = await getServerSession(nextAuthOptions)
-    const uid = session ? session.user.id : guestId()
+    const uid = session ? (!session.user.id) ? guestId() : session.user.id : guestId()
 
     // パラメータからquizIDを取得
     const res = await request.json()

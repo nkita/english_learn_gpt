@@ -60,3 +60,13 @@ export const select_on_quiz = async (where: any) => await prisma.questions.findF
     },
     where: where
 })
+
+/**
+ * ステータス更新
+ * @param user_id 
+ * @returns 
+ */
+export const update = async (data: any, where: any) => await prisma.questions.update({
+    where: where,
+    data: data
+})

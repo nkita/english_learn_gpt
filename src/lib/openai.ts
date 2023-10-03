@@ -6,33 +6,33 @@ export const openai = new OpenAI({
 });
 
 
-export const messageType1 = (question: string, answer: string) => `
-あなたは英語の翻訳者です。{日本語文章}の英語翻訳が{回答文}で適切か下記観点を元に評価してください。
-文章が未完成、または全く関係のない英文の場合は、0点としてください。
-
-日本語文章
+export const userType1 = (question: string, answer: string) => `
+日本語
 ${question}
-
-回答文
+英語
 ${answer}
+`
+export const systemType1 = `
+あなたはあたえられた日本語文章と英語文章から、日本語から英語への翻訳が下記観点により適切か評価してください。
+英語文章が未完成、または全く関係のない英文の場合は、0点としてください。
 
 観点
 0が最低点、100が最高得点
 100点:ネイティブにも伝わる適切な表現となっている。
-80点から99点:全文の翻訳できている
-60点から79点〜:一部のみ翻訳できている
-10点から59点:意味が通じない
+80点:全文の翻訳できている
+60点:一部のみ翻訳できている
+50点:意味が通じない
 `
 
 export const functions = [{
     "name": "score_advice",
-    "description": "文章を点数と評価内容と解答例の3に分割する。元の文章は絶対に変更しないこと。",
+    "description": "評価点と評価内容と解答例の3に分割する。元の文章は絶対に変更しないこと。",
     "parameters": {
         "type": "object",
         "properties": {
             "score": {
                 "type": "number",
-                "description": "点数。最低0、最高100　※必須"
+                "description": "評価.0点から100点の間。"
             },
             "advice": {
                 "type": "string",
