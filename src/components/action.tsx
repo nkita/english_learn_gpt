@@ -1,15 +1,13 @@
 'use client'
-import { Box, Icon, Flex, Container, Heading, Button, Stack } from '@chakra-ui/react'
+import { Button, Stack } from '@chakra-ui/react'
 import { NextQuestionButton } from '@/components/newquestion'
 
-export default function Action() {
+export default function Action({ quizId }: { quizId: string }) {
   return (
     <>
       <Stack p={5} direction={"row"} justifyContent={'center'}>
-        <Button colorScheme='teal' variant='solid'>
-          再挑戦
-        </Button>
-        <NextQuestionButton />
+        <NextQuestionButton label={"再挑戦"} quizId={quizId} />
+        <NextQuestionButton label={"次の問題"} />
       </Stack>
     </>
   );

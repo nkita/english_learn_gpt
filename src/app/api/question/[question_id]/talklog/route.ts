@@ -52,7 +52,6 @@ export async function POST(request: Request, { params }: { params: any }) {
     }).then(res1 => {
         const res1Usage = res1.usage
         logCreate(uid, res1Usage?.completion_tokens, res1Usage?.completion_tokens, res1Usage?.total_tokens)
-        console.log(res1.choices)
         openai.chat.completions.create({
             messages: [
                 { "role": "user", "content": res1.choices[0].message.content },

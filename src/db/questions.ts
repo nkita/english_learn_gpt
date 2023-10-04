@@ -51,6 +51,7 @@ export const select_on_quiz = async (where: any) => await prisma.questions.findF
         update_at: true,
         quiz: {
             select: {
+                id: true,
                 content: true,
                 level: true,
                 option: true,

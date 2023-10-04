@@ -19,12 +19,12 @@ export async function GET(request: Request, { params }: { params: any }) {
     const uid = await sessionUID()
     const record = await select_on_quiz({ id: params.question_id, user_id: uid })
     if (!record) return responseJson(400, null)
-
     const response = {
         id: record.id,
         status: record.status,
         create_at: record.create_at,
         update_at: record.update_at,
+        quiz_id: record.quiz.id,
         content: record.quiz.content,
         type: record.quiz.quiz_type.name,
         description: record.quiz.quiz_type.description
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     const res = await request.json()
     // ランダムまたは、ID指定でQuizを取得
     let quiz: any
-    if (res.quizId === undefined || !res.quizId) {
+    if (!res.quizId) {
         quiz = await rand_select_one()
     } else {
         if (!isUUID(res.quizId)) return responseJson(404)

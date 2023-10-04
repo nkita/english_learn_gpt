@@ -4,11 +4,11 @@ import { Button, useToast } from "@chakra-ui/react";
 import { requestJson } from '@/lib/request';
 import { useRouter } from 'next/navigation'
 
-export const NextQuestionButton = () => {
+export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string | null, label: string }) => {
     const router = useRouter()
 
     const handleOnClick = () => {
-        const id = requestJson('/api/question/', {}).then(res => {
+        requestJson('/api/question/', { quizId: quizId }).then(res => {
             if (res.ok) return res.json()
             throw Error(res.statusText)
         }).catch(e => {
@@ -30,7 +30,7 @@ export const NextQuestionButton = () => {
                 colorScheme="teal"
                 variant={'solid'}
                 onClick={handleOnClick}>
-                次の問題に進む
+                {label}
             </Button>
         </>
     )

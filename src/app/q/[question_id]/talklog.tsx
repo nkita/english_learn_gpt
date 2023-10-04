@@ -7,12 +7,14 @@ import BoxImage from '@/components/image'
 
 export default function TalkLog({
   userImage,
+  quizId,
   talklog,
   error,
   isLoading,
   inprogress
 }: {
   userImage: string,
+  quizId: string,
   talklog?: any,
   error: any,
   isLoading: boolean,
@@ -57,7 +59,7 @@ export default function TalkLog({
           </Box>
         </Box>
       }
-      <Action />
+      <Action quizId={quizId} />
     </>
   );
 }

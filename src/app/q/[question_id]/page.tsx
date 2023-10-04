@@ -10,16 +10,19 @@ import { useUser } from '@/hooks/session'
 import { useFetch } from '@/hooks/fetch'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
-
+import { useSWRConfig } from 'swr'
 
 export default function Home() {
+  const { mutate } = useSWRConfig()
   useFetch('/api/guest', { method: 'GET' })
 
   // 利用者の画像取得
   const user = useUser()
   const userImage = user ? user.image ?? "" : ""
 
-  const [interval, setInterval] = useState(0)
+  // user情報
+  const { data: u_data, error: u_error, isLoading: u_loading } = useFetch(`/api/user`, { method: 'GET' })
+
   // Question取得
   const params = useParams()
   const question_id = params.question_id
@@ -35,6 +38,7 @@ export default function Home() {
       onSuccess: (data: any) => {
         if (data) {
           setInprogress(data.logs.at(-1).speaker === 'user')
+          mutate(`/api/user`)
         }
       }
     }
@@ -74,8 +78,14 @@ export default function Home() {
           }
           {q_data &&
             <Stack spacing='4'>
-              <Quiz description={q_data.description} content={q_data.content} type={q_data.type} max_count={10} current_count={1} />
-              <TalkLog userImage={userImage} talklog={tl_data} error={tl_error} isLoading={tl_isLoading} inprogress={inprogress} />
+              <Quiz description={q_data.description} content={q_data.content} type={q_data.type} max_count={u_data.count.limit} current_count={u_data.count.now} />
+              <TalkLog
+                userImage={userImage}
+                quizId={q_data.quiz_id}
+                talklog={tl_data}
+                error={tl_error}
+                isLoading={tl_isLoading}
+                inprogress={inprogress} />
             </Stack>
           }
         </Container>
@@ -84,8 +94,9 @@ export default function Home() {
         disabled={
           q_isLoading
           || !q_data
-          || inprogress 
+          || inprogress
           || (tl_data && tl_data.question_satatus === 'Completed')
+          || (u_data && u_data.count.limit < u_data.count.now)
         }
         questionId={question_id} />
     </>
