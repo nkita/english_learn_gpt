@@ -49,8 +49,8 @@ export default function TalkLog({
   return (
     <>
       {logs.length > 0 && logs.map((l: any, index: number) => {
-        if (l.speaker === 'user') return <User key={l.id} userImage={userImage} content={l.content} />
-        if (l.speaker === 'ai') return <AI key={l.id} content={l.content} score={l.score} solution={l.best_answer} />
+        if (l.speaker === 'user') return <User key={l.id} userImage={userImage} content={l.content} create_at={l.create_at} />
+        if (l.speaker === 'ai') return <AI key={l.id} content={l.content} score={l.score} solution={l.best_answer} create_at={l.create_at} />
       })}
       {inprogress &&
         <Box w={'100%'} display={'flex'} justifyContent={'center'}>

@@ -1,6 +1,7 @@
 import prisma from "@/db/prisma";
 import { randomUUID } from "crypto";
 export const select = async (where: any) => await prisma.questions.findMany({ where: where })
+export const ex_select = async (options: any) => await prisma.questions.findMany(options)
 
 /**
  * 質問作成　質問は未完了の問題がある場合は作成できない。

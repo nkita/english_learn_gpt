@@ -55,5 +55,60 @@ export const yyyymmddhhmmss = new Intl.DateTimeFormat(
         second: '2-digit',
     }
 )
+
+export const yyyymmddhhmm = new Intl.DateTimeFormat(
+    'ja-JP',
+    {
+        timeZone: 'Asia/Tokyo',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+    }
+)
+
 export const serverlog = (msg: string, type = "info") => console.log(`[${type}] ${yyyymmddhhmmss.format(new Date())} ${msg}`)
 export const randomStr = () => Math.random().toString(36).slice(2)
+
+export const get_color_sets = (value: number | string | null | undefined) => {
+    const default_set = { score: [], bg: 'red.500', bcolor: 'red.500', color: 'white', face: '🐶' }
+    if (value === undefined || value === null) return default_set
+
+    const color_sets = [
+        { score: [0, 20], bg: 'gray.500', bcolor: 'gray.500', color: 'white', face: '😱' },
+        { score: [21, 40], bg: 'cyan.500', bcolor: 'cyan.500', color: 'white', face: '😣' },
+        { score: [41, 60], bg: 'purple.500', bcolor: 'purple.500', color: 'white', face: '😄' },
+        { score: [61, 80], bg: 'green.500', bcolor: 'green.500', color: 'white', face: '😄' },
+        { score: [81, 99], bg: 'yellow.500', bcolor: 'yellow.500', color: 'white', face: '😆' },
+        { score: [100, 100], bg: 'red.500', bcolor: 'red.500', color: 'white', face: '😍' },
+    ]
+
+    let _score = 0;
+    if (typeof value === "string") {
+        switch (value) {
+            case 'S':
+                _score = 100
+                break;
+            case 'A':
+                _score = 99
+                break;
+            case 'B':
+                _score = 80
+                break;
+            case 'C':
+                _score = 70
+                break;
+            case 'F':
+                _score = 0
+                break;
+            default:
+                _score = 50
+
+        }
+    } else {
+        _score = value
+    }
+    const colors = color_sets.filter(cs => (cs.score[0] <= _score && _score <= cs.score[1]))[0]
+    return colors === undefined ? default_set : colors
+}

@@ -2,15 +2,16 @@
 import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack } from '@chakra-ui/react'
 
 
-export default function Quiz({ description, content, type, max_count = 10, current_count = 6 }: { description: string, content: string, type: string, max_count: number, current_count: number }) {
+export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level: string | number | null, type: string, max_count: number, current_count: number }) {
   const rest_count = max_count - current_count;
   return (
     <>
       <Box rounded={10} w={"100%"} >
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'start'} pb={3}>
           <Box pr={10}>
-            <Stack direction={'row'}>
+            <Stack direction={'row'} pb={2}>
               <Tag colorScheme='gray'>{type}</Tag>
+              <Tag colorScheme='blue'>{type && 'normal'}</Tag>
             </Stack>
             <Text pt={3}>{description}</Text>
           </Box>
@@ -23,7 +24,7 @@ export default function Quiz({ description, content, type, max_count = 10, curre
             <Text fontSize={'xs'}>残り回数</Text>
           </Box>
         </Box>
-        <Card variant={'outline'}>
+        <Card variant={'outline'} borderLeftColor={'blue.300'} borderLeftWidth={'10px'}>
           <CardBody>
             {content}
           </CardBody>

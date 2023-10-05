@@ -8,7 +8,7 @@ import { redirect } from 'next/navigation'
 
 export default function Home() {
   useFetch('/api/guest', { method: 'GET' })
-  const { data, error, isLoading } = useFetch('/api/question', { body: JSON.stringify({ "quizId": "cd855e12-56c8-11ee-ba65-3ab5df3c8e16" }) })
+  const { data, error, isLoading } = useFetch('/api/question', { method: 'GET' })
 
   if (data && isUUID(data.id)) {
     redirect(`/q/${data.id}`)

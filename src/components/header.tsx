@@ -1,8 +1,16 @@
 'use client'
 import NextLink from "next/link"
-import { Box, Icon, Flex, Container, Heading, Link, Stack } from '@chakra-ui/react'
+import { Box, Flex, Container, Heading, Link, Stack } from '@chakra-ui/react'
+import { useUser } from "@/hooks/session"
+import { usePathname } from "next/navigation"
+import { Edu_SA_Beginner } from 'next/font/google'
+
+const font = Edu_SA_Beginner({ subsets: ['latin'] })
 
 export default function Header() {
+    // 利用者の画像取得
+    const user = useUser()
+    const path = usePathname()
     return (
         <>
             <Box
@@ -22,11 +30,21 @@ export default function Header() {
                     <Box w={'100%'} display={'flex'} justifyContent={'space-between'}>
                         <Flex align="center" mr={5}>
                             <Heading as="h1" size="sm" letterSpacing={'tighter'} color={"whiteAlpha.900"}>
-                                <Link as={NextLink} href='/q'> English Learning with GPT</Link>
+                                <Link
+                                    href='/q'
+                                    className={font.className}
+                                    _hover={{ textDecorationLine: 'none' }}
+                                >
+                                    English Personal Trainer
+                                </Link>
                             </Heading>
                         </Flex>
-                        <Stack direction={'row'} sx={{ alignItems: 'center' }}>
-                            <LinkItem href='/api/auth/signin' path='/'>SignIn</LinkItem>
+                        <Stack direction={'row'} sx={{ alignItems: 'center' }} className={font.className}>
+                            <LinkItem href='/q' path={path}>Q</LinkItem>
+                            <Box color={'whiteAlpha.900'}>{'/'}</Box>
+                            <LinkItem href='/terms' path={path}>Terms</LinkItem>
+                            <Box color={'whiteAlpha.900'}>{'/'}</Box>
+                            {!user ? <LinkItem href='/api/auth/signin' path=''>Login</LinkItem> : <LinkItem href='/api/auth/signout' path=''>Logout</LinkItem>}
                             {/* <LinkItem href='/home' path='/'>History</LinkItem> */}
                             {/* <LinkItem href='/profile' path='/'>Me</LinkItem> */}
                         </Stack>
@@ -51,13 +69,16 @@ const LinkItem = (
         target?: string;
         children: React.ReactNode;
     }) => {
-    const active = path === href
+    const regex = new RegExp(href)
+    const active = regex.test(path)
     return (
         <Link
-            as={NextLink}
+            // as={NextLink}
             href={href}
-            scroll={false}
+            // scroll={false}
             color={'whiteAlpha.900'}
+            fontWeight={active ? 'bold' : ''}
+            textDecoration={active ? 'underline' : ''}
             target={target}
             {...props}
         >

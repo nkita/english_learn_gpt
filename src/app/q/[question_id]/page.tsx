@@ -78,7 +78,13 @@ export default function Home() {
           }
           {q_data &&
             <Stack spacing='4'>
-              <Quiz description={q_data.description} content={q_data.content} type={q_data.type} max_count={u_data.count.limit} current_count={u_data.count.now} />
+              <Quiz
+                description={q_data.description}
+                content={q_data.content}
+                type={q_data.type}
+                max_count={!u_data ? null : u_data.count.limit}
+                current_count={!u_data ? null : u_data.count.now}
+              />
               <TalkLog
                 userImage={userImage}
                 quizId={q_data.quiz_id}
@@ -96,7 +102,7 @@ export default function Home() {
           || !q_data
           || inprogress
           || (tl_data && tl_data.question_satatus === 'Completed')
-          || (u_data && u_data.count.limit < u_data.count.now)
+          || (u_data && u_data.count.limit === u_data.count.now)
         }
         questionId={question_id} />
     </>
