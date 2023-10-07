@@ -1,9 +1,10 @@
 'use client'
 import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack } from '@chakra-ui/react'
+import { get_level_sets } from '@/lib/util'
 
-
-export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level?: string | number | null, type: string, max_count: number, current_count: number }) {
+export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level?: number | null, type: string, max_count: number, current_count: number }) {
   const rest_count = max_count - current_count;
+  const lv_set = get_level_sets(level)
   return (
     <>
       <Box rounded={10} w={"100%"} >
@@ -11,7 +12,7 @@ export default function Quiz({ description, content, type, level, max_count = 10
           <Box pr={10}>
             <Stack direction={'row'} pb={2}>
               <Tag colorScheme='gray'>{type}</Tag>
-              <Tag colorScheme='blue'>{type && 'normal'}</Tag>
+              <Tag colorScheme={lv_set.colorScheme}>{lv_set.label}</Tag>
             </Stack>
             <Text pt={3}>{description}</Text>
           </Box>

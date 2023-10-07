@@ -71,6 +71,7 @@ export const yyyymmddhhmm = new Intl.DateTimeFormat(
 export const serverlog = (msg: string, type = "info") => console.log(`[${type}] ${yyyymmddhhmmss.format(new Date())} ${msg}`)
 export const randomStr = () => Math.random().toString(36).slice(2)
 
+
 export const get_color_sets = (value: number | string | null | undefined) => {
     const default_set = { score: [], bg: 'red.500', bcolor: 'red.500', color: 'white', face: '🐶' }
     if (value === undefined || value === null) return default_set
@@ -111,4 +112,20 @@ export const get_color_sets = (value: number | string | null | undefined) => {
     }
     const colors = color_sets.filter(cs => (cs.score[0] <= _score && _score <= cs.score[1]))[0]
     return colors === undefined ? default_set : colors
+}
+
+
+export const get_level_sets = (value: number | null | undefined) => {
+    const default_set = { level: [], colorScheme: 'cyan', label: 'Normal Lv' }
+    if (value === undefined || value === null) return default_set
+
+    const level_sets = [
+        { level: [0, 1], colorScheme: 'green', label: 'Beginner Lv' },
+        { level: [2, 3], colorScheme: 'blue', label: 'Low Lv' },
+        { level: [4, 4], colorScheme: 'orange', label: 'Medium Lv' },
+        { level: [5, 5], colorScheme: 'red', label: 'High Lv' },
+    ]
+
+    const sets = level_sets.filter(ls => (ls.level[0] <= value && value <= ls.level[1]))[0]
+    return sets === undefined ? default_set : sets
 }

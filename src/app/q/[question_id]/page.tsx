@@ -1,5 +1,5 @@
 'use client'
-import { Stack, Container, Box } from '@chakra-ui/react'
+import { Stack, Container, Box ,Fade} from '@chakra-ui/react'
 import Quiz from './quiz'
 
 import Me from '@/components/me'
@@ -45,7 +45,8 @@ export default function Home() {
   )
 
   return (
-    <>
+    <Fade in={true}>
+
       <Box bg={"#fafafa"}>
         <Container
           h={`calc(100vh - 110px)`}
@@ -82,6 +83,7 @@ export default function Home() {
                 description={q_data.description}
                 content={q_data.content}
                 type={q_data.type}
+                level={2}
                 max_count={!u_data ? null : u_data.count.limit}
                 current_count={!u_data ? null : u_data.count.now}
               />
@@ -105,6 +107,6 @@ export default function Home() {
           || (u_data && u_data.count.limit === u_data.count.now)
         }
         questionId={question_id} />
-    </>
+    </Fade>
   );
 }

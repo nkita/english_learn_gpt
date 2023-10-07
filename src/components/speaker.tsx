@@ -10,7 +10,8 @@ import {
     AccordionPanel,
     AccordionIcon,
     Avatar,
-    Text
+    Text,
+    Fade
 } from '@chakra-ui/react'
 import { Fragment } from 'react';
 import { Score } from '@/components/score';
@@ -20,7 +21,7 @@ import { yyyymmddhhmm, get_color_sets } from '@/lib/util';
 export function User({ userImage, content, create_at }: { userImage: string | null, content: string, create_at: string }) {
     const date = yyyymmddhhmm.format(new Date(create_at))
     return (
-        <>
+        <Fade in={true}>
             <Card ml={20}>
                 <CardBody bg={'orange.50'}>
                     <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={5}>
@@ -32,14 +33,14 @@ export function User({ userImage, content, create_at }: { userImage: string | nu
                     </Text >
                 </CardBody>
             </Card>
-        </>
+        </Fade>
     );
 }
 
 export function AI({ content, score, solution, create_at }: { content: string, score?: string | null | number, solution?: string | null, create_at: string }) {
     const date = yyyymmddhhmm.format(new Date(create_at))
     return (
-        <>
+        <Fade in={true} >
             <Card mr={20}>
                 <CardBody>
                     <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={5}>
@@ -86,6 +87,6 @@ export function AI({ content, score, solution, create_at }: { content: string, s
                     </Stack>
                 </CardBody>
             </Card>
-        </>
+        </Fade>
     );
 }
