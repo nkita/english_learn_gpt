@@ -25,6 +25,7 @@ export async function GET(request: Request, { params }: { params: any }) {
         create_at: record.create_at,
         update_at: record.update_at,
         quiz_id: record.quiz.id,
+        level: record.quiz.level,
         content: record.quiz.content,
         type: record.quiz.quiz_type.name,
         description: record.quiz.quiz_type.description

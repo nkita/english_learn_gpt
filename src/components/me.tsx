@@ -1,5 +1,6 @@
 'use client'
-import { Box, Avatar, Text, Container, Textarea, Button, useToast, Spinner } from '@chakra-ui/react'
+import { Box, Avatar, Text, Container, Textarea, Button, useToast, Spinner, Link, Icon } from '@chakra-ui/react'
+import { FaXTwitter } from "react-icons/fa6";
 import { useRef, useState } from 'react';
 import { ChatIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { isEnglishChars } from '@/lib/util';
@@ -76,7 +77,6 @@ export default function Me({
                 maxW='container.md'
                 bg={'whiteAlpha.800'}
                 pt={4}
-                pb={3}
                 roundedTopLeft={20}
                 roundedTopRight={20}
                 shadow={'xl'}>
@@ -117,7 +117,9 @@ export default function Me({
                         </Box>
                     </Box>
                 </Box>
-                <Box textAlign={'end'}>
+                <Box textAlign={'center'} display={'flex'} alignItems={'center'} justifyContent={'center'} py={1} >
+                    <Text pr={3} fontSize={'xs'} color={'gray.500'}>Copyright © 2022 nkita</Text>
+                    <Link href='https://twitter.com/nkitao7' target='_blank'><Icon color={'gray.500'} fontSize={'xs'} as={FaXTwitter} /></Link>
                 </Box>
             </Container>
         </Box >

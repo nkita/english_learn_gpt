@@ -75,7 +75,8 @@ const random_image = () => {
     { image: '/random/05.svg', 'message': 'さぁ、問題を解いてみよう！' },
     { image: '/random/06.svg', 'message': 'さぁ、問題を解いてみよう！' },
     { image: '/random/07.svg', 'message': 'さぁ、問題を解いてみよう！' },
-    { image: '/random/08.svg', 'message': 'さぁ、問題を解いてみよう！' }
+    { image: '/random/08.svg', 'message': 'さぁ、問題を解いてみよう！' },
+    { image: '/random/09.svg', 'message': 'ファイト!' }
   ]
 
   const randomIndex = Math.floor(Math.random() * list.length);

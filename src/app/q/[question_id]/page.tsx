@@ -1,5 +1,5 @@
 'use client'
-import { Stack, Container, Box ,Fade} from '@chakra-ui/react'
+import { Stack, Container, Box, Fade } from '@chakra-ui/react'
 import Quiz from './quiz'
 
 import Me from '@/components/me'
@@ -83,7 +83,7 @@ export default function Home() {
                 description={q_data.description}
                 content={q_data.content}
                 type={q_data.type}
-                level={2}
+                level={q_data.level}
                 max_count={!u_data ? null : u_data.count.limit}
                 current_count={!u_data ? null : u_data.count.now}
               />
