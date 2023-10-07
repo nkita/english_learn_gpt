@@ -2,7 +2,7 @@
 import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack } from '@chakra-ui/react'
 
 
-export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level: string | number | null, type: string, max_count: number, current_count: number }) {
+export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level?: string | number | null, type: string, max_count: number, current_count: number }) {
   const rest_count = max_count - current_count;
   return (
     <>

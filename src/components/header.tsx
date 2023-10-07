@@ -3,9 +3,10 @@ import NextLink from "next/link"
 import { Box, Flex, Container, Heading, Link, Stack } from '@chakra-ui/react'
 import { useUser } from "@/hooks/session"
 import { usePathname } from "next/navigation"
-import { Edu_SA_Beginner } from 'next/font/google'
+import { Baloo_Bhai_2, Comfortaa } from 'next/font/google'
 
-const font = Edu_SA_Beginner({ subsets: ['latin'] })
+const font = Comfortaa({ subsets: ['latin'] })
+const fontQ = Baloo_Bhai_2({ subsets: ['latin'] })
 
 export default function Header() {
     // 利用者の画像取得
@@ -29,17 +30,17 @@ export default function Header() {
                 >
                     <Box w={'100%'} display={'flex'} justifyContent={'space-between'}>
                         <Flex align="center" mr={5}>
-                            <Heading as="h1" size="sm" letterSpacing={'tighter'} color={"whiteAlpha.900"}>
+                            <Heading size="md" color={"whiteAlpha.900"}>
                                 <Link
                                     href='/q'
                                     className={font.className}
                                     _hover={{ textDecorationLine: 'none' }}
                                 >
-                                    English Personal Trainer
+                                    ChatEPT α
                                 </Link>
                             </Heading>
                         </Flex>
-                        <Stack direction={'row'} sx={{ alignItems: 'center' }} className={font.className}>
+                        <Stack direction={'row'} sx={{ alignItems: 'center' }} className={fontQ.className}>
                             <LinkItem href='/q' path={path}>Q</LinkItem>
                             <Box color={'whiteAlpha.900'}>{'/'}</Box>
                             <LinkItem href='/terms' path={path}>Terms</LinkItem>

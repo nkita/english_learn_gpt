@@ -4,8 +4,8 @@ import { select as u_select } from '@/db/user'
 import { select as q_select } from '@/db/questions'
 
 export const GET = async () => {
-    const guest_oneday_limit = 5;
-    const user_onday_limit = 10;
+    const guest_oneday_limit = 2;
+    const user_oneday_limit = 5;
 
     const uid = await sessionUID()
     const u_record = await u_select({ id: uid })
@@ -28,7 +28,7 @@ export const GET = async () => {
     const response = {
         count: {
             now: t_record.length,
-            limit: isGuest ? guest_oneday_limit : user_onday_limit
+            limit: isGuest ? guest_oneday_limit : user_oneday_limit
         }
     }
     return responseJson(200, response)
