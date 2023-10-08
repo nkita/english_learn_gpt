@@ -6,13 +6,13 @@ import { useRouter } from 'next/navigation'
 
 export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string | null, label: string }) => {
     const router = useRouter()
+    const toast = useToast()
 
     const handleOnClick = () => {
         requestJson('/api/question/', { quizId: quizId }).then(res => {
             if (res.ok) return res.json()
             throw Error(res.statusText)
         }).catch(e => {
-            const toast = useToast()
             toast({
                 description: '問題の作成に失敗しました。時間をおいてお試しください。',
                 status: 'error',
