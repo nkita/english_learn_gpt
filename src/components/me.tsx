@@ -118,7 +118,7 @@ export default function Me({
                     </Box>
                 </Box>
                 <Box textAlign={'center'} display={'flex'} alignItems={'center'} justifyContent={'center'} py={1} >
-                    <Text pr={3} fontSize={'xs'} color={'gray.500'}>Copyright © 2022 nkita</Text>
+                    <Text pr={3} fontSize={'xs'} color={'gray.500'}>Copyright © 2023 nkita</Text>
                     <Link href='https://twitter.com/nkitao7' target='_blank'><Icon color={'gray.500'} fontSize={'xs'} as={FaXTwitter} /></Link>
                 </Box>
             </Container>
