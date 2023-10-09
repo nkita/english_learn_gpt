@@ -31,7 +31,7 @@ export default function TalkLog({
       </Box>
     )
   }
-  if (error) {
+  if (error && !isLoading) {
     return (
       <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
         <BoxImage src='/error.svg' alt={'System Error'} text={"System error. _(:3｣∠)_"} />
@@ -59,7 +59,9 @@ export default function TalkLog({
           </Box>
         </Box>
       }
-      <Action quizId={quizId} />
+      {!inprogress &&
+        <Action quizId={quizId} />
+      }
     </>
   );
 }
