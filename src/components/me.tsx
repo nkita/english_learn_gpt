@@ -13,7 +13,7 @@ export default function Me({
     disabled = false,
     questionId,
 }: {
-    user: string | null | unde,
+    user: string | null | undefined,
     disabled?: boolean,
     questionId: string | string[],
 }) {
