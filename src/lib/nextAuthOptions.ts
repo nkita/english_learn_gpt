@@ -29,6 +29,9 @@ export const nextAuthOptions = {
     async jwt({ token, user, account, profile, isNewUser }) {
       return token
     }
+  },
+  session: {
+    maxAge: 180 * 24 * 60 * 60,
   }
 } satisfies NextAuthConfig
 

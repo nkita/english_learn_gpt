@@ -14,7 +14,7 @@ export default function Quiz({ description, content, type, level, max_count = 10
               <Tag colorScheme='gray'>{type}</Tag>
               <Tag colorScheme={lv_set.colorScheme}>{lv_set.label}</Tag>
             </Stack>
-            <Text pt={3}>{description}</Text>
+            <Text pt={3} fontSize={['sm','md']}>{description}</Text>
           </Box>
           <Box>
             <CircularProgress
@@ -26,7 +26,7 @@ export default function Quiz({ description, content, type, level, max_count = 10
           </Box>
         </Box>
         <Card variant={'outline'} borderLeftColor={'blue.300'} borderLeftWidth={'10px'}>
-          <CardBody>
+          <CardBody fontSize={['sm','md']}>
             {content}
           </CardBody>
         </Card>

@@ -44,8 +44,6 @@ export default function Header() {
                             <LinkItem href='/q' path={path}>Q</LinkItem>
                             <Box color={'whiteAlpha.900'}>{'/'}</Box>
                             <LinkItem href='/terms' path={path}>Terms</LinkItem>
-                            <Box color={'whiteAlpha.900'}>{'/'}</Box>
-                            {!user ? <LinkItem href='/api/auth/signin' path=''>Login</LinkItem> : <LinkItem href='/api/auth/signout' path=''>Logout</LinkItem>}
                             {/* <LinkItem href='/home' path='/'>History</LinkItem> */}
                             {/* <LinkItem href='/profile' path='/'>Me</LinkItem> */}
                         </Stack>

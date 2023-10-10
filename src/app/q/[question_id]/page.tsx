@@ -98,7 +98,7 @@ export default function Home() {
           }
         </Container>
       </Box >
-      <Me userImage={userImage}
+      <Me user={user}
         disabled={
           q_isLoading
           || !q_data

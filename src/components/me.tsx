@@ -6,13 +6,14 @@ import { ChatIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { isEnglishChars } from '@/lib/util';
 import { requestJson } from '@/lib/request';
 import { useSWRConfig } from 'swr'
+import { signIn, signOut } from "next-auth/react"
 
 export default function Me({
-    userImage,
+    user,
     disabled = false,
     questionId,
 }: {
-    userImage: string | null,
+    user: string | null | unde,
     disabled?: boolean,
     questionId: string | string[],
 }) {
@@ -71,6 +72,7 @@ export default function Me({
     }
 
     const maxCharCount = 200
+
     return (
         <Box position={'fixed'} bottom={0} w='100%' bg='#fafafa'>
             <Container
@@ -81,8 +83,8 @@ export default function Me({
                 roundedTopRight={20}
                 shadow={'xl'}>
                 <Box display={'flex'}>
-                    <Box pr={5} display={'flex'}>
-                        <Avatar src={userImage ?? ""} size={'lg'} />
+                    <Box pr={5} display={['none', 'flex']}>
+                        <Avatar src={user?.image} size={'lg'} onClick={_ => !user ? signIn() : signOut()} _hover={{ cursor: 'pointer' }} title={!user ? 'login' : 'logout'} />
                     </Box>
                     <Box display={'flex'} w={'100%'}>
                         <Box pr={2} w={'100%'}>

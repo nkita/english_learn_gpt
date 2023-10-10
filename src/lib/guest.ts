@@ -9,7 +9,8 @@ export const guestId = () => {
     } else {
         const yymmdd = new Date().toLocaleDateString('ja-JP', { year: '2-digit', month: '2-digit', day: '2-digit' }).replace(/\//g, '');
         const id = `g-${yymmdd}-${randomStr()}`
-        cookies().set(guest_name, id, { secure: true, httpOnly: true })
+        const maxAge = 15552000
+        cookies().set(guest_name, id, { secure: true, httpOnly: true, maxAge: maxAge })
         return id
     }
 }
