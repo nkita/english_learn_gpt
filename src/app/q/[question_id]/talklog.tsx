@@ -11,18 +11,23 @@ export default function TalkLog({
   talklog,
   error,
   isLoading,
-  inprogress
+  inprogress,
+  max_count,
+  current_count
 }: {
   userImage: string,
   quizId: string,
   talklog?: any,
   error: any,
   isLoading: boolean,
-  inprogress: boolean
+  inprogress: boolean,
+  max_count: number,
+  current_count: number
 }) {
   const random_img = random_image()
 
   const logs = !talklog ? null : talklog.logs
+  const rest_count = max_count - current_count;
 
   if (!logs && !isLoading) {
     return (
@@ -60,8 +65,9 @@ export default function TalkLog({
         </Box>
       }
       {!inprogress &&
-        <Action quizId={quizId} />
+        <Action quizId={quizId} restCount={rest_count} />
       }
+      <Box h={['100px', '10px']} />
     </>
   );
 }

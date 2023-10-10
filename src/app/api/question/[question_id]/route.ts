@@ -18,7 +18,7 @@ export async function GET(request: Request, { params }: { params: any }) {
 
     const uid = await sessionUID()
     const record = await select_on_quiz({ id: params.question_id, user_id: uid })
-    if (!record) return responseJson(400, null)
+    if (!record) return responseJson(400)
     const response = {
         id: record.id,
         status: record.status,

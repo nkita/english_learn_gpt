@@ -1,5 +1,5 @@
 'use client'
-import { Stack, Container, Box, Fade } from '@chakra-ui/react'
+import { Stack, Container, Box, Fade, Link } from '@chakra-ui/react'
 import Quiz from './quiz'
 
 import Me from '@/components/me'
@@ -9,8 +9,10 @@ import BoxImage from '@/components/image'
 import { useUser } from '@/hooks/session'
 import { useFetch } from '@/hooks/fetch'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import { useSWRConfig } from 'swr'
+import NextLink from "next/link"
+
 
 export default function Home() {
   const { mutate } = useSWRConfig()
@@ -43,7 +45,8 @@ export default function Home() {
       }
     }
   )
-
+  const handleSubmit = (flg: boolean) => setInprogress(flg)
+  
   return (
     <Fade in={true}>
 
@@ -68,9 +71,12 @@ export default function Home() {
           }}
         >
           {(!q_data || q_error) && !q_isLoading &&
-            <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
-              <BoxImage src='/not-found-question.svg' alt={'Not Found'} size='420px' text={"I'm sooooorry... I couldn't locate it. _(:3｣∠)_"} />
-            </Box>
+            <Fragment>
+              <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+                <BoxImage src='/not-found-question.svg' alt={'Not Found'} size='420px' text={"I'm sooooorry... I couldn't locate it. _(:3｣∠)_"} />
+                <Link pt={5} color={'gray.500'} href={'/q'}>再検索</Link>
+              </Box>
+            </Fragment>
           }
           {q_isLoading &&
             <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
@@ -93,7 +99,10 @@ export default function Home() {
                 talklog={tl_data}
                 error={tl_error}
                 isLoading={tl_isLoading}
-                inprogress={inprogress} />
+                inprogress={inprogress}
+                max_count={!u_data ? null : u_data.count.limit}
+                current_count={!u_data ? null : u_data.count.now}
+              />
             </Stack>
           }
         </Container>
@@ -106,7 +115,8 @@ export default function Home() {
           || (tl_data && tl_data.question_satatus === 'Completed')
           || (u_data && u_data.count.limit === u_data.count.now)
         }
+        submit={handleSubmit}
         questionId={question_id} />
-    </Fade>
+    </Fade >
   );
 }

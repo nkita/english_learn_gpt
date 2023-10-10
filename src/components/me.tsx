@@ -1,7 +1,7 @@
 'use client'
 import { Box, Avatar, Text, Container, Textarea, Button, useToast, Spinner, Link, Icon } from '@chakra-ui/react'
 import { FaXTwitter } from "react-icons/fa6";
-import { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { ChatIcon, NotAllowedIcon } from '@chakra-ui/icons'
 import { isEnglishChars } from '@/lib/util';
 import { requestJson } from '@/lib/request';
@@ -12,10 +12,12 @@ export default function Me({
     user,
     disabled = false,
     questionId,
+    submit,
 }: {
     user: any,
     disabled?: boolean,
     questionId: string | string[],
+    submit: (flg: boolean) => void
 }) {
     const [charCount, setCharCount] = useState(0)
     const [chars, setChars] = useState("")
@@ -32,6 +34,7 @@ export default function Me({
             if (isEnglishChars(chars)) {
                 const post_url = `/api/question/${questionId}/talklog`
                 setLoading(true)
+                submit(true)
                 requestJson(post_url, { data: chars })
                     .then(res => {
                         if (res.ok) {

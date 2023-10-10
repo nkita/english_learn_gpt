@@ -71,7 +71,7 @@ export async function POST(request: Request, { params }: { params: any }) {
             } else {
                 create(qid, uid, 'ai', { content: res2.choices[0].message.content })
             }
-            update({ status: 'Completed' }, { id: qid })
+            update({ status: 'Completed', update_at: new Date() }, { id: qid })
         })
     }).catch(e => {
         console.error(e.message)
