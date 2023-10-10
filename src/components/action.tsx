@@ -9,7 +9,7 @@ export default function Action({ quizId }: { quizId: string }) {
         <NextQuestionButton label={"再挑戦"} quizId={quizId} />
         <NextQuestionButton label={"次の問題"} />
       </Stack>
-      <Box h={'20px'} />
+      <Box h={['100px','0px']} />
     </>
   );
 }
