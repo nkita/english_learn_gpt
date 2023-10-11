@@ -37,7 +37,11 @@ export async function POST(request: Request, { params }: { params: any }) {
     const uid = await sessionUID()
     const req = await request.json()
     if (!isEnglishChars(req.data)) return responseJson(400)
-    create(qid, uid, 'user', { content: req.data })
+    try {
+        create(qid, uid, 'user', { content: req.data })
+    } catch (e) {
+        return responseJson(500)
+    }
 
     const q = await select_on_quiz({ id: qid })
     if (!q) return responseJson(400)
@@ -72,6 +76,8 @@ export async function POST(request: Request, { params }: { params: any }) {
                 create(qid, uid, 'ai', { content: res2.choices[0].message.content })
             }
             update({ status: 'Completed', update_at: new Date() }, { id: qid })
+        }).catch(e => {
+            throw new Error(e.message)
         })
     }).catch(e => {
         console.error(e.message)
