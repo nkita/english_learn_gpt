@@ -14,7 +14,7 @@ export default function Action({ quizId, restCount }: { quizId: string, restCoun
           </Fragment>
         }
         {restCount <= 0 &&
-          <Box fontSize={'sm'} color={'gray.500'} textAlign={'center'}>利用回数上限に達しました<br />明日再度チャレンジしてください！</Box>
+          <Box fontSize={'sm'} color={'gray.500'} textAlign={'center'}>利用回数の上限に達しました<br />明日再度チャレンジしてください！</Box>
         }
       </Stack>
     </>
