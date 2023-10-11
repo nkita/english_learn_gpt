@@ -13,7 +13,7 @@ ${question}
 ${answer}
 `
 export const systemType1 = `
-あたえられた日本語と英語より、日本語から英語への翻訳が適切か下記観点を元に採点し、アドバイス・評価してください。
+あたえられた日本語と英語より、日本語から英語への翻訳が適切か下記観点を元に採点し、アドバイス・評価・ヒントを提示してください。
 英語文章が未完成、または全く関係のない英文の場合は、0点としてください。
 解答例も提示してください。
 評価内容は観点の内容をそのまま記載しないこと。
@@ -32,7 +32,7 @@ export const systemType1 = `
 
 export const functions = [{
     "name": "score_advice",
-    "description": "与えられた文章を評価点、アドバイス・評価、解答例の3に分割する。元の文章は絶対に変更しないこと。",
+    "description": "与えられた文章を評価点、アドバイス・評価・ヒント、解答例の3に分割する。元の文章は絶対に変更しないこと。",
     "parameters": {
         "type": "object",
         "properties": {
@@ -42,7 +42,7 @@ export const functions = [{
             },
             "advice": {
                 "type": "string",
-                "description": "アドバイス・評価"
+                "description": "アドバイス・評価・ヒント"
             },
             "example": {
                 "type": "string",
