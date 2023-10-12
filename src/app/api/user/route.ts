@@ -13,9 +13,9 @@ export const GET = async () => {
     const isGuest = u_record.length === 0 ? true : false
 
     const today = new Date();
-    const startOfDay = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate() - 1, 15, 0, 0));
+    const startOfDay = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), 15, 0, 0));
     const endOfDay = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate(), 14, 59, 59));
-    
+
     const t_record = await q_select({
         user_id: uid,
         status: 'Completed',
