@@ -6,7 +6,7 @@ export const isEmail = (value: string) => /^[\w\-._]+@[\w\-._]+\.[A-Za-z]+$/.tes
 export const encodeJsonString = (value: string) => new TextEncoder().encode(JSON.stringify(value))
 export const sleep = (time: number) => new Promise((resolve) => setTimeout(resolve, time))
 export const fetchWithToken = (url: string, token: string) => fetch(url, { headers: { 'Authorization': 'Bearer ' + token } })
-export const validation = (target: string, value: string) => {
+export const validation = (target: string, value: any) => {
     if (!value || value === undefined) return false
     switch (target) {
         case 'token':
@@ -30,10 +30,13 @@ export const validation = (target: string, value: string) => {
         case 'email':
             if (!isEmail(value)) return false
             break;
+        case 'level':
+            if (value !== 'B' && value !== 'L' && value !== 'N' && value !== 'M' && value !== 'H') return false
+            break;
     }
     return true
 }
-export const validations = (targets: [{ target: string, value: string }]) => {
+export const validations = (targets: [{ target: string, value: any }]) => {
     let r = true
     for (const t of targets) {
         if (!validation(t.target, t.value)) {
@@ -120,7 +123,7 @@ export const get_level_sets = (value: number | null | undefined) => {
     if (value === undefined || value === null) return default_set
 
     const level_sets = [
-        { level: [0, 1], colorScheme: 'green', label: 'Beginner Lv' },
+        { level: [1, 1], colorScheme: 'green', label: 'Beginner Lv' },
         { level: [2, 2], colorScheme: 'blue', label: 'Low Lv' },
         { level: [3, 3], colorScheme: 'blue', label: 'Normal Lv' },
         { level: [4, 4], colorScheme: 'orange', label: 'Medium Lv' },
@@ -129,4 +132,21 @@ export const get_level_sets = (value: number | null | undefined) => {
 
     const sets = level_sets.filter(ls => (ls.level[0] <= value && value <= ls.level[1]))[0]
     return sets === undefined ? default_set : sets
+}
+
+export const get_level_number = (value: string) => {
+    switch (value) {
+        case 'B':
+            return 1;
+        case 'L':
+            return 2;
+        case 'N':
+            return 3;
+        case 'M':
+            return 4;
+        case 'H':
+            return 5;
+        default:
+            return 3;
+    }
 }

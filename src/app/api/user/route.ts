@@ -4,8 +4,8 @@ import { select as u_select } from '@/db/user'
 import { select as q_select } from '@/db/questions'
 
 export const GET = async () => {
-    const guest_oneday_limit = 3;
-    const user_oneday_limit = 5;
+    const guest_oneday_limit = 5;
+    const user_oneday_limit = 10;
 
     const uid = await sessionUID()
     const u_record = await u_select({ id: uid })

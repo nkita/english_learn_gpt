@@ -8,7 +8,7 @@ import useLocalStorage from '@/hooks/localstorage'
 export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string | null, label: string }) => {
     const router = useRouter()
     const toast = useToast()
-    const [type, setType] = useLocalStorage('type', "1")
+    const [type, setType] = useLocalStorage('type', 1)
     const [level, setLevel] = useLocalStorage('level', 'N')
     const [isRandom, setRandom] = useLocalStorage('isRandom', true)
 
@@ -17,7 +17,7 @@ export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string |
             quizId: quizId,
             type: type,
             level: level,
-            isRandom: isRandom
+            random: isRandom
         }).then(res => {
             if (res.ok) return res.json()
             throw Error(res.statusText)

@@ -1,7 +1,7 @@
 import { responseJson } from '@/lib/response'
 import { select, rand_select_one } from '@/db/quizzes'
 import { ex_select as q_select, create } from '@/db/questions'
-import { isUUID } from '@/lib/util'
+import { get_level_number, isUUID, validations } from '@/lib/util'
 import sessionUID from '@/lib/session'
 /**
  * @returns response JSON
@@ -31,17 +31,30 @@ export async function POST(request: Request) {
 
     // パラメータからquizIDを取得
     const res = await request.json()
-    const data = await create_question(uid, res.quizId)
+    const quizId = res.quizId
+    const level = res.level
+    const type = JSON.parse(res.type)
+    const random = JSON.parse(res.random)
+
+    if (
+        !validations([{ target: 'level', value: level }])
+        || ![1, 2].includes(type)
+        || !(typeof random == 'boolean')
+    ) return responseJson(400)
+
+    const data = await create_question(uid, level, type, random, quizId)
 
     return data ? responseJson(200, data) : responseJson(400)
 }
 
 
-const create_question = async (uid: string, quizId?: string) => {
+const create_question = async (uid: string, level: string, type: number, random: boolean, quizId?: string) => {
     // ランダムまたは、ID指定でQuizを取得
+    const strLevel = get_level_number(level)
     let quiz: any
     if (!quizId) {
-        quiz = await rand_select_one()
+        quiz = await rand_select_one(random, strLevel, type)
+        console.log(quiz)
     } else {
         if (!isUUID(quizId)) return null
         quiz = await select({ id: quizId })

@@ -9,7 +9,7 @@ export default function ChangeModeModal() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { register, handleSubmit, setValue, control } = useForm()
 
-  const [type, setType] = useLocalStorage('type', "1")
+  const [type, setType] = useLocalStorage('type', 1)
   const [level, setLevel] = useLocalStorage('level', 'N')
   const [isRandom, setRandom] = useLocalStorage('isRandom', true)
 
