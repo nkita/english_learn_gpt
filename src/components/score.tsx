@@ -13,7 +13,7 @@ export const Score = ({ value }: { value: number | string }) => {
             <Box
                 className={font.className}
                 display={'flex'}
-                fontSize={['xl', 'md']}
+                fontSize={['sm', 'xl']}
                 alignItems={'center'}
                 justifyContent={'center'}
                 // bg={'whiteAlpha.700'}
