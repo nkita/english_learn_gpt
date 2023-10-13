@@ -19,7 +19,7 @@ export const GET = async () => {
     const t_record = await q_select({
         user_id: uid,
         status: 'Completed',
-        create_at: {
+        update_at: {
             gte: startOfDay,
             lte: endOfDay
         },

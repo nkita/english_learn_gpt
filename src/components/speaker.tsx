@@ -24,9 +24,9 @@ export function User({ userImage, content, create_at }: { userImage: string | nu
         <Fade in={true}>
             <Card ml={[5, 20]}>
                 <CardBody bg={'orange.50'}>
-                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={5} fontSize={['sm','md']}>
+                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={5} fontSize={['sm', 'md']}>
                         <Avatar src={userImage ?? ""} size='xs' />
-                        <Text pl={2} fontSize={['xs','sm']} color={"gray.500"}>{date}</Text>
+                        <Text pl={2} fontSize={['xs', 'sm']} color={"gray.500"}>{date}</Text>
                     </Box>
                     <Text>
                         {content.split('\n').map((c, index) => <Fragment key={index}>{c}<br /></Fragment>)}
@@ -43,45 +43,37 @@ export function AI({ content, score, solution, create_at }: { content: string, s
         <Fade in={true} >
             <Card mr={[5, 20]}>
                 <CardBody>
-                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={5}>
+                    <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'} pb={3}>
                         <Box display={'flex'} alignItems={'center'}>
-                            <Box
-                                display={'flex'}
-                                alignItems={'center'}
-                                justifyContent={'center'}
-                                bg={'rgba(0,0,0,0)'}
-                                fontSize={'2xl'}
-                            >{get_color_sets(score).face}</Box>
-                            <Text fontWeight={'bold'} pl={2}>Answer</Text>
-                        </Box>
-                        <Text color={"gray.500"} fontSize={['xs','sm']} pl={2}>{date}</Text>
-                    </Box>
-                    <Stack spacing='4'>
-                        <Stack pb={2} pl={2} direction={"row"} justifyContent={'space-between'}>
                             {score !== undefined && score !== null &&
                                 <Box display={'flex'} alignItems={'center'}>
                                     <Score value={score} />
                                 </Box>
                             }
-                            <Box justifyContent={'start'} bg='gray.50' p={5} w={"85%"} rounded={10} fontSize={['sm','md']}>
-                                {content &&
-                                    content.split('\n').map((c, index) => <Fragment key={index}>{c}<br /></Fragment>)
-                                }
-                            </Box>
-                        </Stack>
+                            <Text fontWeight={'bold'} pl={2}>Point</Text>
+                        </Box>
+                        <Text color={"gray.500"} fontSize={['xs', 'sm']} pl={2}>{date}</Text>
+                    </Box>
+                    <Stack spacing='4'>
+                        <Box justifyContent={'start'} bg='gray.50' p={5} rounded={10} fontSize={['sm', 'md']}>
+                            {get_color_sets(score).face}　 
+                            {content &&
+                                content.split('\n').map((c, index) => <Fragment key={index}>{c}<br /></Fragment>)
+                            }
+                        </Box>
                         {solution &&
                             <Box>
                                 <Accordion allowMultiple>
                                     <AccordionItem>
                                         <h2>
                                             <AccordionButton>
-                                                <Box as="span" flex='1' textAlign='left' fontSize={['sm','md']}>
+                                                <Box as="span" flex='1' textAlign='left' fontSize={['sm', 'md']}>
                                                     解答例
                                                 </Box>
                                                 <AccordionIcon />
                                             </AccordionButton>
                                         </h2>
-                                        <AccordionPanel pb={4} fontSize={['sm','md']}>
+                                        <AccordionPanel pb={4} fontSize={['sm', 'md']}>
                                             {solution}
                                         </AccordionPanel>
                                     </AccordionItem>

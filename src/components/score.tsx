@@ -13,7 +13,7 @@ export const Score = ({ value }: { value: number | string }) => {
             <Box
                 className={font.className}
                 display={'flex'}
-                fontSize={['xl', '4xl']}
+                fontSize={['xl', 'md']}
                 alignItems={'center'}
                 justifyContent={'center'}
                 // bg={'whiteAlpha.700'}
@@ -22,8 +22,8 @@ export const Score = ({ value }: { value: number | string }) => {
                 rounded={90}
                 border={'1px solid'}
                 borderColor={colors.bcolor}
-                w={['50px', '75px']}
-                h={['50px', '75px']}
+                w={['20px', '40px']}
+                h={['20px', '40px']}
                 boxShadow={'xs'}>
                 {value}
             </Box>

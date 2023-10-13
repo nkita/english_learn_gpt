@@ -5,7 +5,7 @@ import { select_on_quiz, update } from '@/db/questions'
 import { isUUID } from '@/lib/util'
 import sessionUID from '@/lib/session'
 import { isEnglishChars, sleep } from '@/lib/util';
-import { openai, userType1, systemType1, functions } from '@/lib/openai'
+import { openai, userType2, userType1, systemType1, systemType2, functions } from '@/lib/openai'
 /**
  * Questionの取得。
  * @param quizId クイズIDが渡された場合はそのまま作成
@@ -45,11 +45,27 @@ export async function POST(request: Request, { params }: { params: any }) {
 
     const q = await select_on_quiz({ id: qid })
     if (!q) return responseJson(400)
+    let utype = null
+    let stype = null
+    switch (q.quiz.quiz_type.id) {
+        case 1:
+            utype = userType1
+            stype = systemType1
+            break;
+        case 2:
+            utype = userType2
+            stype = systemType2
+            break;
+        default:
+            utype = userType1
+            stype = systemType2
+    }
+
     // GPT　answer
     openai.chat.completions.create({
         messages: [
-            { "role": "system", "content": systemType1 },
-            { "role": "user", "content": userType1(q.quiz.content, req.data) }
+            { "role": "system", "content": stype },
+            { "role": "user", "content": utype(q.quiz.content, req.data) }
         ],
         temperature: 0.1,
         model: "gpt-3.5-turbo",
@@ -67,7 +83,7 @@ export async function POST(request: Request, { params }: { params: any }) {
         }).then(res2 => {
             const res2Usage = res2.usage
             logCreate(uid, res2Usage?.completion_tokens, res2Usage?.completion_tokens, res2Usage?.total_tokens)
-
+            
             const function_call = res2.choices[0].message.function_call
             if (function_call !== undefined && function_call) {
                 const functionArgs = JSON.parse(function_call.arguments)
