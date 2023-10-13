@@ -54,7 +54,6 @@ const create_question = async (uid: string, level: string, type: number, random:
     let quiz: any
     if (!quizId) {
         quiz = await rand_select_one(random, strLevel, type)
-        console.log(quiz)
     } else {
         if (!isUUID(quizId)) return null
         quiz = await select({ id: quizId })
