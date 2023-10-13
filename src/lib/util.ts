@@ -77,12 +77,12 @@ export const get_color_sets = (value: number | string | null | undefined) => {
     if (value === undefined || value === null) return default_set
 
     const color_sets = [
-        { score: [0, 20], bg: 'gray.500', bcolor: 'gray.500', color: 'white', face: '😱' },
-        { score: [21, 40], bg: 'cyan.500', bcolor: 'cyan.500', color: 'white', face: '😣' },
-        { score: [41, 60], bg: 'purple.500', bcolor: 'purple.500', color: 'white', face: '😄' },
-        { score: [61, 80], bg: 'green.500', bcolor: 'green.500', color: 'white', face: '😄' },
-        { score: [81, 99], bg: 'yellow.500', bcolor: 'yellow.500', color: 'white', face: '😆' },
-        { score: [100, 100], bg: 'red.500', bcolor: 'red.500', color: 'white', face: '😍' },
+        { score: [0, 20], bg: 'gray.50', bcolor: 'white', color: 'gray.700', face: '😱' },
+        { score: [21, 40], bg: 'cyan.50', bcolor: 'white', color: 'cyan.700', face: '😣' },
+        { score: [41, 60], bg: 'purple.50', bcolor: 'white', color: 'purple.700', face: '😄' },
+        { score: [61, 80], bg: 'green.50', bcolor: 'white', color: 'green.700', face: '😄' },
+        { score: [81, 99], bg: 'yellow.50', bcolor: 'white', color: 'yellow.700', face: '😆' },
+        { score: [100, 100], bg: 'red.50', bcolor: 'white', color: 'red.700', face: '😍' },
     ]
 
     let _score = 0;
@@ -121,7 +121,8 @@ export const get_level_sets = (value: number | null | undefined) => {
 
     const level_sets = [
         { level: [0, 1], colorScheme: 'green', label: 'Beginner Lv' },
-        { level: [2, 3], colorScheme: 'blue', label: 'Low Lv' },
+        { level: [2, 2], colorScheme: 'blue', label: 'Low Lv' },
+        { level: [3, 3], colorScheme: 'blue', label: 'Normal Lv' },
         { level: [4, 4], colorScheme: 'orange', label: 'Medium Lv' },
         { level: [5, 5], colorScheme: 'red', label: 'High Lv' },
     ]

@@ -18,9 +18,6 @@ export const GET = async () => {
         }
     })
 
-    if (record.length === 0) {
-        return responseJson(200, await create_question(uid))
-    }
     return responseJson(200, record[0])
 }
 

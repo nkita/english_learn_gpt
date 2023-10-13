@@ -1,7 +1,7 @@
 'use client'
-import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack } from '@chakra-ui/react'
+import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack, IconButton } from '@chakra-ui/react'
 import { get_level_sets } from '@/lib/util'
-
+import ChangeModeModal from '@/components/changemode'
 export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level?: number | null, type: string, max_count: number, current_count: number }) {
   const rest_count = max_count - current_count;
   const lv_set = get_level_sets(level)
@@ -10,11 +10,12 @@ export default function Quiz({ description, content, type, level, max_count = 10
       <Box rounded={10} w={"100%"} >
         <Box display={'flex'} justifyContent={'space-between'} alignItems={'start'} pb={3}>
           <Box pr={10}>
-            <Stack direction={'row'} pb={2}>
+            <Stack direction={'row'} pb={2} alignItems={'center'}>
               <Tag colorScheme='gray'>{type}</Tag>
               <Tag colorScheme={lv_set.colorScheme}>{lv_set.label}</Tag>
+              <ChangeModeModal />
             </Stack>
-            <Text pt={3} fontSize={['sm','md']}>{description}</Text>
+            <Text pt={3} fontSize={['sm', 'md']}>{description}</Text>
           </Box>
           <Box>
             <CircularProgress
@@ -26,7 +27,7 @@ export default function Quiz({ description, content, type, level, max_count = 10
           </Box>
         </Box>
         <Card variant={'outline'} borderLeftColor={'blue.300'} borderLeftWidth={'10px'}>
-          <CardBody fontSize={['sm','md']}>
+          <CardBody fontSize={['sm', 'md']}>
             {content}
           </CardBody>
         </Card>

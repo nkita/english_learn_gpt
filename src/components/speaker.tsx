@@ -50,7 +50,7 @@ export function AI({ content, score, solution, create_at }: { content: string, s
                                     <Score value={score} />
                                 </Box>
                             }
-                            <Text fontWeight={'bold'} pl={2}>Point</Text>
+                            <Text fontWeight={'bold'}>点</Text>
                         </Box>
                         <Text color={"gray.500"} fontSize={['xs', 'sm']} pl={2}>{date}</Text>
                     </Box>

@@ -1,10 +1,10 @@
 'use client';
 
 import { Box, Text } from "@chakra-ui/react";
-import { Fredoka } from 'next/font/google'
+import { Caveat } from 'next/font/google'
 import { get_color_sets } from "@/lib/util";
 
-const font = Fredoka({ subsets: ['latin'] })
+const font = Caveat({ subsets: ['latin'] })
 
 export const Score = ({ value }: { value: number | string }) => {
     const colors = get_color_sets(value)
@@ -13,18 +13,21 @@ export const Score = ({ value }: { value: number | string }) => {
             <Box
                 className={font.className}
                 display={'flex'}
-                fontSize={['sm', 'xl']}
+                fontSize={['md', '2xl']}
+                fontWeight={'bold'}
+                textDecoration={'underline'}
                 alignItems={'center'}
                 justifyContent={'center'}
                 // bg={'whiteAlpha.700'}
                 bg={colors.bg}
                 color={colors.color}
-                rounded={90}
+                rounded={5}
+                px={7}
                 border={'1px solid'}
                 borderColor={colors.bcolor}
-                w={['20px', '40px']}
-                h={['20px', '40px']}
-                boxShadow={'xs'}>
+                w={['30px', '40px']}
+                h={['30px', '40px']}
+                >
                 {value}
             </Box>
         </>
