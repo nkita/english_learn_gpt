@@ -37,7 +37,7 @@ export default function ChangeModeModal() {
         onClick={onOpen}
       />
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={['sm','lg']}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>設定</ModalHeader>
