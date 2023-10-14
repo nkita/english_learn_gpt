@@ -35,7 +35,6 @@ export async function POST(request: Request) {
     const level = res.level
     const type = JSON.parse(res.type)
     const random = JSON.parse(res.random)
-
     if (
         !validations([{ target: 'level', value: level }])
         || ![1, 2].includes(type)

@@ -10,8 +10,10 @@ export default function ChangeModeModal() {
   const { register, handleSubmit, setValue, control } = useForm()
 
   const [type, setType] = useLocalStorage('type', 1)
-  const [level, setLevel] = useLocalStorage('level', 'N')
-  const [isRandom, setRandom] = useLocalStorage('isRandom', true)
+  const [level, setLevel] = useLocalStorage('level', 'B')
+  const [random, setLSRandom] = useLocalStorage('isRandom', true)
+
+  const [isRandom, setRandom] = useState(random)
 
   useEffect(() => {
     setValue('random', isRandom)
@@ -21,7 +23,7 @@ export default function ChangeModeModal() {
   const onSubmit = (data: any) => {
     setType(data.type)
     setLevel(data.level)
-    setRandom(data.random)
+    setLSRandom(data.random)
     onClose()
   }
 
@@ -55,7 +57,7 @@ export default function ChangeModeModal() {
                 <Controller
                   name="type"
                   control={control}
-                  defaultValue={type}
+                  defaultValue={String(type)}
                   render={({ field: { onChange, value } }) => (
                     <RadioGroup onChange={onChange} value={value} isDisabled={isRandom}>
                       <Stack direction='row'>

@@ -9,7 +9,7 @@ export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string |
     const router = useRouter()
     const toast = useToast()
     const [type, setType] = useLocalStorage('type', 1)
-    const [level, setLevel] = useLocalStorage('level', 'N')
+    const [level, setLevel] = useLocalStorage('level', 'B')
     const [isRandom, setRandom] = useLocalStorage('isRandom', true)
 
     const handleOnClick = () => {

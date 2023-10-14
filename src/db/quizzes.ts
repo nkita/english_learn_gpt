@@ -8,7 +8,7 @@ SELECT
     *
 FROM
     Quizzes
-${random ? Prisma.sql` WHERE level=${level} AND quiz_type_id=${type} ` : Prisma.empty}
+${random ? Prisma.empty : Prisma.sql` WHERE level=${level} AND quiz_type_id=${type} `}
 ORDER BY
     RAND()
 LIMIT
