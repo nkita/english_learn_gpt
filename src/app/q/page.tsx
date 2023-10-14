@@ -20,8 +20,10 @@ export default function Home() {
       {isLoading && <Loading />}
       {(!data && !isLoading) &&
         <Stack spacing={3}>
-          <BoxImage src={'/welcom.svg'} alt='welcom' size='420px' text='😍ようこそ、ChatEPTへ😍' />
-          <NextQuestionButton label={"チャレンジする"} />
+          <BoxImage src={'/welcom.svg'} alt='welcom' size={['300px','420px']} text='😍ようこそ、ChatEPTへ😍' />
+          <Box w={'100%'} display={'flex'} justifyContent={'center'}>
+            <NextQuestionButton label={"チャレンジする"} />
+          </Box>
         </Stack>
       }
     </Box>

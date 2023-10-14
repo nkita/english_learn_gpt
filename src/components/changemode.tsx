@@ -11,7 +11,7 @@ export default function ChangeModeModal() {
 
   const [type, setType] = useLocalStorage('type', 1)
   const [level, setLevel] = useLocalStorage('level', 'B')
-  const [random, setLSRandom] = useLocalStorage('isRandom', true)
+  const [random, setLSRandom] = useLocalStorage('isRandom', false)
 
   const [isRandom, setRandom] = useState(random)
 
@@ -70,11 +70,11 @@ export default function ChangeModeModal() {
               <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
                 <Text> レベルの選択</Text>
                 <Select  {...register('level')} size='sm' w={'200px'} defaultValue={level} isDisabled={isRandom}>
-                  <option value='B'>Begginer</option>
-                  <option value='L'>Low</option>
-                  <option value='N'>Normal</option>
-                  <option value='M'>Medium</option>
-                  <option value='H'>High</option>
+                  <option value='B'>初心者</option>
+                  <option value='L'>低レベル</option>
+                  <option value='N'>普通レベル</option>
+                  <option value='M'>中レベル</option>
+                  <option value='H'>高レベル</option>
                 </Select>
               </Box>
             </Stack>

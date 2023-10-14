@@ -43,7 +43,7 @@ export async function POST(request: Request) {
 
     const data = await create_question(uid, level, type, random, quizId)
 
-    return data ? responseJson(200, data) : responseJson(400)
+    return data ? responseJson(200, data) : responseJson(404)
 }
 
 
@@ -57,6 +57,7 @@ const create_question = async (uid: string, level: string, type: number, random:
         if (!isUUID(quizId)) return null
         quiz = await select({ id: quizId })
     }
+    if (quiz.length === 0) return null
     //Questionを作成
     return await create(uid, quiz[0].id)
 }

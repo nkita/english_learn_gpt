@@ -123,11 +123,11 @@ export const get_level_sets = (value: number | null | undefined) => {
     if (value === undefined || value === null) return default_set
 
     const level_sets = [
-        { level: [1, 1], colorScheme: 'green', label: 'Beginner Lv' },
-        { level: [2, 2], colorScheme: 'blue', label: 'Low Lv' },
-        { level: [3, 3], colorScheme: 'blue', label: 'Normal Lv' },
-        { level: [4, 4], colorScheme: 'orange', label: 'Medium Lv' },
-        { level: [5, 5], colorScheme: 'red', label: 'High Lv' },
+        { level: [1, 1], colorScheme: 'green', label: '初心者' },
+        { level: [2, 2], colorScheme: 'blue', label: '低Lv' },
+        { level: [3, 3], colorScheme: 'blue', label: '普通Lv' },
+        { level: [4, 4], colorScheme: 'orange', label: '中Lv' },
+        { level: [5, 5], colorScheme: 'red', label: '高Lv' },
     ]
 
     const sets = level_sets.filter(ls => (ls.level[0] <= value && value <= ls.level[1]))[0]
