@@ -46,7 +46,7 @@ export default function Home() {
     }
   )
   const handleSubmit = (flg: boolean) => setInprogress(flg)
-  
+
   return (
     <Fade in={true}>
 
@@ -92,6 +92,8 @@ export default function Home() {
                 level={q_data.level}
                 max_count={!u_data ? null : u_data.count.limit}
                 current_count={!u_data ? null : u_data.count.now}
+                q_status={q_data.status}
+                q_id={q_data.id}
               />
               <TalkLog
                 userImage={userImage}

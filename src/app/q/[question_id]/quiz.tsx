@@ -2,7 +2,7 @@
 import { Box, CircularProgress, CircularProgressLabel, Tag, Card, CardBody, Text, Stack, IconButton } from '@chakra-ui/react'
 import { get_level_sets } from '@/lib/util'
 import ChangeModeModal from '@/components/changemode'
-export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6 }: { description: string, content: string, level?: number | null, type: string, max_count: number, current_count: number }) {
+export default function Quiz({ description, content, type, level, max_count = 10, current_count = 6, q_status, q_id }: { description: string, content: string, level?: number | null, type: string, max_count: number, current_count: number, q_status: string, q_id: string }) {
   const rest_count = max_count - current_count;
   const lv_set = get_level_sets(level)
   return (
@@ -13,7 +13,7 @@ export default function Quiz({ description, content, type, level, max_count = 10
             <Stack direction={'row'} pb={2} alignItems={'center'}>
               <Tag colorScheme='gray'>{type}</Tag>
               <Tag colorScheme={lv_set.colorScheme}>{lv_set.label}</Tag>
-              <ChangeModeModal />
+              <ChangeModeModal q_status={q_status} q_id={q_id}/>
             </Stack>
             <Text pt={3} fontSize={['sm', 'md']}>{description}</Text>
           </Box>

@@ -92,7 +92,7 @@ export default function Me({
                     <Box display={'flex'} w={'100%'}>
                         <Box pr={2} w={'100%'}>
                             <Textarea
-                                placeholder='Here is a your answer.'
+                                placeholder='ここに答えを書いてね'
                                 autoFocus
                                 maxLength={maxCharCount}
                                 rows={3}

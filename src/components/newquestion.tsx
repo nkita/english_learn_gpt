@@ -4,6 +4,7 @@ import { Button, useToast } from "@chakra-ui/react";
 import { requestJson } from '@/lib/request';
 import { useRouter } from 'next/navigation'
 import useLocalStorage from '@/hooks/localstorage'
+import { useEffect } from "react";
 
 export const NextQuestionButton = ({ quizId = null, label }: { quizId?: string | null, label: string }) => {
     const router = useRouter()

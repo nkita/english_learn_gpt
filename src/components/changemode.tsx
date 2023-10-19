@@ -1,11 +1,17 @@
 'use client'
-import { IconButton, Switch, Box, Radio, RadioGroup, Text, Stack, Select, useDisclosure, Button, Modal, ModalOverlay, ModalHeader, ModalBody, ModalContent, ModalCloseButton, ModalFooter } from '@chakra-ui/react'
-import { FaGear } from 'react-icons/fa6'
+import { IconButton, Switch, Box, Radio, RadioGroup, Text, Stack, Select, useDisclosure, useToast, Button, Modal, ModalOverlay, ModalHeader, ModalBody, ModalContent, ModalCloseButton, ModalFooter } from '@chakra-ui/react'
+import { FaArrowsRotate, FaBan } from 'react-icons/fa6'
 import { useForm, Controller } from 'react-hook-form'
 import { useEffect, useState } from 'react'
 import useLocalStorage from '@/hooks/localstorage'
+import { requestJson } from '@/lib/request';
+import { useSWRConfig } from 'swr'
 
-export default function ChangeModeModal() {
+
+export default function ChangeModeModal({ q_status, q_id }: { q_status: string, q_id: string }) {
+  const { mutate } = useSWRConfig()
+  const toast = useToast()
+
   const { isOpen, onOpen, onClose } = useDisclosure()
   const { register, handleSubmit, setValue, control } = useForm()
 
@@ -24,26 +30,55 @@ export default function ChangeModeModal() {
     setType(data.type)
     setLevel(data.level)
     setLSRandom(data.random)
-    onClose()
+    requestJson(`/api/question/${q_id}`, {
+      type: data.type,
+      level: data.level,
+      random: data.random
+    }).then(res => {
+      if (res.ok) return res.json()
+      throw Error(res.status === 404 ?
+        '問題が見つかりませんでした、設定を変更して再度チャレンジしてください。'
+        : '問題の作成に失敗しました。時間をおいてお試しください。')
+
+    }).then((q) => {
+      mutate(`/api/question/${q_id}`)
+      onClose()
+    }).catch(e => {
+      toast({
+        description: e.message,
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    })
   }
 
   return (
     <>
-      <IconButton
-        variant='none'
-        colorScheme='teal'
-        aria-label='config'
-        icon={<FaGear />}
-        onClick={onOpen}
-      />
-
-      <Modal isOpen={isOpen} onClose={onClose} size={['sm','lg']}>
+      {q_status === 'Inprogress' &&
+        <IconButton
+          variant='none'
+          colorScheme='gray'
+          aria-label='config'
+          icon={<FaArrowsRotate />}
+          onClick={onOpen}
+        />
+      }
+      {q_status !== 'Inprogress' &&
+        <IconButton
+          variant='none'
+          colorScheme='teal'
+          disabled={true}
+          aria-label='config'
+          icon={<FaBan />}
+        />
+      }
+      <Modal isOpen={isOpen} onClose={onClose} size={['sm', 'lg']}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>設定</ModalHeader>
+          <ModalHeader>クイズを変更</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            次回の出題から変更内容が有効になります。
             <Stack direction={'column'} spacing={4} pt={5}>
               <Box display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
                 <Text pr={2}> ランダム出題</Text>
@@ -81,7 +116,7 @@ export default function ChangeModeModal() {
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='green' width={'100%'} onClick={handleSubmit(onSubmit)}>
-              保存
+              チェンジ
             </Button>
           </ModalFooter>
         </ModalContent>

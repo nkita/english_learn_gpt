@@ -34,8 +34,8 @@ export const metadata: Metadata = {
         title: "Home | Chat EPT",
         description: "Chat English Personal Trainer(ChatEPT)は、英語学習サービスです。ChatEPTでは、あなたに合った、あなたのためにAI（ChatGPT）がアドバイスします。",
         siteName: "ChatEPT",
-        // images: [{               ToDo favico
-        //     url: "https://example.com/og.png",
-        // }],
+        images: [{              
+            url: "/logo2.png",
+        }],
     }
 }

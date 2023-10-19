@@ -83,7 +83,7 @@ export async function POST(request: Request, { params }: { params: any }) {
         }).then(res2 => {
             const res2Usage = res2.usage
             logCreate(uid, res2Usage?.completion_tokens, res2Usage?.completion_tokens, res2Usage?.total_tokens)
-            
+
             const function_call = res2.choices[0].message.function_call
             if (function_call !== undefined && function_call) {
                 const functionArgs = JSON.parse(function_call.arguments)
