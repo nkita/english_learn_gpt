@@ -56,27 +56,20 @@ export default function ChangeModeModal({ q_status, q_id }: { q_status: string, 
   return (
     <>
       {q_status === 'Inprogress' &&
-        <IconButton
-          variant='none'
-          colorScheme='gray'
-          aria-label='config'
-          icon={<FaArrowsRotate />}
-          onClick={onOpen}
-        />
+        <Button leftIcon={<FaArrowsRotate />} size="xs" colorScheme='blue' variant='link' onClick={onOpen}>
+          問題を変更する
+        </Button>
       }
       {q_status !== 'Inprogress' &&
-        <IconButton
-          variant='none'
-          colorScheme='teal'
-          disabled={true}
-          aria-label='config'
-          icon={<FaBan />}
-        />
+        <Button leftIcon={<FaBan />} size="xs" colorScheme='gray'  color='blackAlpha.500' _hover={{cursor:'not-allowed'}} variant='link'>
+          問題を変更する
+        </Button>
+
       }
       <Modal isOpen={isOpen} onClose={onClose} size={['sm', 'lg']}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>クイズを変更</ModalHeader>
+          <ModalHeader>問題を変更</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack direction={'column'} spacing={4} pt={5}>

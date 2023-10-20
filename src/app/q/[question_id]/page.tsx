@@ -41,6 +41,7 @@ export default function Home() {
         if (data) {
           setInprogress(data.logs.at(-1).speaker === 'user')
           mutate(`/api/user`)
+          mutate(`/api/question/${question_id}`)
         }
       }
     }
