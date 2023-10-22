@@ -4,6 +4,7 @@ import { AI, User } from '@/components/speaker';
 import Action from '@/components/action';
 import Loading from '@/components/loading'
 import BoxImage from '@/components/image'
+import { Scoring, Dots } from '@/components/lottie/Player'
 
 export default function TalkLog({
   userImage,
@@ -59,8 +60,9 @@ export default function TalkLog({
       })}
       {inprogress &&
         <Box w={'100%'} display={'flex'} justifyContent={'center'}>
-          <Box p={5} boxShadow={'inherit'} bg={"blue.50"} display={'flex'} justifyItems={'center'} rounded={10} borderWidth={"1px"} borderColor={"blackAlpha.200"}>
-            <Text>採点中・・・</Text><Spinner />
+          <Box p={5} boxShadow={'inherit'} display={'flex'} justifyItems={'center'} alignItems={'center'}>
+            <Scoring loop style={{ width: '50px', height: '50px' }} />
+            <Dots loop style={{ width: '50px', height: '50px' }} />
           </Box>
         </Box>
       }

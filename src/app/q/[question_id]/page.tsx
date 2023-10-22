@@ -13,7 +13,6 @@ import { Fragment, useState } from 'react'
 import { useSWRConfig } from 'swr'
 import NextLink from "next/link"
 
-
 export default function Home() {
   const { mutate } = useSWRConfig()
   useFetch('/api/guest', { method: 'GET' })
@@ -41,7 +40,7 @@ export default function Home() {
         if (data) {
           setInprogress(data.logs.at(-1).speaker === 'user')
           mutate(`/api/user`)
-          mutate(`/api/question/${question_id}`)
+          mutate(`/api/user`)
         }
       }
     }
@@ -71,6 +70,8 @@ export default function Home() {
             },
           }}
         >
+
+
           {(!q_data || q_error) && !q_isLoading &&
             <Fragment>
               <Box h={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
