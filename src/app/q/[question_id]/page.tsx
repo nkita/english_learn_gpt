@@ -40,13 +40,12 @@ export default function Home() {
         if (data) {
           setInprogress(data.logs.at(-1).speaker === 'user')
           mutate(`/api/user`)
-          mutate(`/api/user`)
+          mutate(`/api/question/${question_id}`)
         }
       }
     }
   )
   const handleSubmit = (flg: boolean) => setInprogress(flg)
-
   return (
     <Fade in={true}>
 
@@ -96,6 +95,7 @@ export default function Home() {
                 current_count={!u_data ? null : u_data.count.now}
                 q_status={q_data.status}
                 q_id={q_data.id}
+                inprogress={inprogress}
               />
               <TalkLog
                 userImage={userImage}

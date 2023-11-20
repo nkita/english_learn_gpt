@@ -8,7 +8,7 @@ import { requestJson } from '@/lib/request';
 import { useSWRConfig } from 'swr'
 
 
-export default function ChangeModeModal({ q_status, q_id }: { q_status: string, q_id: string }) {
+export default function ChangeModeModal({ q_status, q_id, inprogress }: { q_status: string, q_id: string, inprogress: boolean }) {
   const { mutate } = useSWRConfig()
   const toast = useToast()
 
@@ -52,16 +52,15 @@ export default function ChangeModeModal({ q_status, q_id }: { q_status: string, 
       })
     })
   }
-
   return (
     <>
-      {q_status === 'Inprogress' &&
+      {(q_status === 'Inprogress' && !inprogress) &&
         <Button leftIcon={<FaArrowsRotate />} size="xs" colorScheme='blue' variant='link' onClick={onOpen}>
           問題を変更する
         </Button>
       }
-      {q_status !== 'Inprogress' &&
-        <Button leftIcon={<FaBan />} size="xs" colorScheme='gray'  color='blackAlpha.500' _hover={{cursor:'not-allowed'}} variant='link'>
+      {(q_status !== 'Inprogress' || inprogress) &&
+        <Button leftIcon={<FaBan />} size="xs" colorScheme='gray' color='blackAlpha.500' _hover={{ cursor: 'not-allowed' }} variant='link'>
           問題を変更する
         </Button>
 
