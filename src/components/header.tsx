@@ -32,7 +32,7 @@ export default function Header() {
                         <Flex align="center" mr={5}>
                             <Heading size="md" color={"whiteAlpha.900"}>
                                 <Link
-                                    href='/q'
+                                    href='/'
                                     className={font.className}
                                     _hover={{ textDecorationLine: 'none' }}
                                 >

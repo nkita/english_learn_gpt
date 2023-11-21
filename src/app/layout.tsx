@@ -4,13 +4,11 @@ import { Inter } from 'next/font/google'
 import { NextAuthProvider, _CacheProvider, _ChakraProvider } from "@/app/providers";
 import { getServerSession } from "next-auth";
 import { nextAuthOptions } from "@/lib/nextAuthOptions";
+import Header from '@/components/header'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'ChatEPT',
-  description: 'Chat English Personal Trainer(EPT)は、英語学習サービスです。ChatEPTでは、あなたに合った、あなたのためにAI（ChatGPT）がアドバイスします。',
-}
 
 export default async function RootLayout({
   children,
@@ -25,6 +23,7 @@ export default async function RootLayout({
         <_CacheProvider>
           <_ChakraProvider>
             <NextAuthProvider>
+              <Header />
               {children}
             </NextAuthProvider>
           </_ChakraProvider>
@@ -32,4 +31,19 @@ export default async function RootLayout({
       </body>
     </html>
   )
+}
+
+
+export const metadata: Metadata = {
+  title: 'Home | ChatEPT',
+  openGraph: {
+    type: "website",
+    // url: "https://///",　ToDo
+    title: "Home | Chat EPT",
+    description: "Chat English Personal Trainer(ChatEPT)は、英語学習サービスです。ChatEPTでは、あなたに合った、あなたのためにAI（ChatGPT）がアドバイスします。",
+    siteName: "ChatEPT",
+    images: [{
+      url: "/logo2.png",
+    }],
+  }
 }
